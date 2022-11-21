@@ -1,6 +1,4 @@
-{% extends "base.html" %}
-{% block titulo %}Inicio Administrador{% endblock %}
-{% block link %}
+{% if sesion_activa == '0' %}
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         Usiarios
@@ -45,12 +43,9 @@
         <li><a class="dropdown-item" href="#">Listar</a></li>
     </ul>
 </li>
-{% endblock %}
+{% elif session_activa == None %}
+<li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+</li>
 
-
-
-{% extends "base.html" %} {% block titulo %} Esta es la página de inicio {% endblock %} {% block body %}
-
-<h1>Bienvenidos a la página de Ejemplo ORM</h1>
-
-{% endblock %}
+{% endif %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %} 
+{% block titulo %} ELiminar usuario {% endblock %} 
+{% block navegador%}
+    {% include "navegador.html"%}
+{% endblock %}
+{% block body %}
+
+<form action="fx_eliminarUsuario" method="get"> {% csrf_token %}
+    <tr>
+        <td>Usuario</td>
+        <td><input type="text" name="f_username" maxlength="25" required/></td>
+    </tr>
+    <tr>
+        <td colspan="2"><input type="submit" value="Eliminar persona"/></td>
+    </tr>
+</form>
+<h1>{{msj}}</h1>
+
+{% endblock %}

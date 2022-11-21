@@ -1,0 +1,39 @@
+{% extends "base.html" %} 
+{% block titulo %} Listado de usuarios {% endblock %} 
+{% block navegador%}{% include "navegador.html"%}{% endblock %}
+{% block body %}
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                Username
+            </th>
+            <th>
+                Password
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Perfil
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for us in usuarios %}
+        <tr>
+            <td>{{us.username}}</td>
+            <td>{{us.password}}</td>
+            <td>{{us.email}}</td>
+            <td>{{us.nombre}}</td>
+            <td>{{us.perfil}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+
+{% endblock %}
