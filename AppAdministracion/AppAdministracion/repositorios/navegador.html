@@ -1,4 +1,4 @@
-{% if sesion_activa == '0' %}
+{% if sesion_activa == 0 %}
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         Usiarios
@@ -45,7 +45,6 @@
 </li>
 {% elif session_activa == None %}
 <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
+    <a class="nav-link" href="iniciarSesion">Iniciar Sesión</a>
 </li>
-
 {% endif %}

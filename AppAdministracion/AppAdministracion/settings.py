@@ -55,7 +55,7 @@ ROOT_URLCONF = 'AppAdministracion.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["./AppAdministracion/repositorios"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -31,4 +31,4 @@ class Usuario(models.Model):
     nombre      = models.CharField (max_length = 60)
     perfil      = models.IntegerField ()
 
-Usuario.objects.create (username = 'admin', password = 'adminadmin', email = 'a@admin.cl' , nombre = 'administrador general' , perfil = 0)
+# Usuario.objects.create (username = 'admin', password = 'adminadmin', email = 'a@admin.cl' , nombre = 'administrador general' , perfil = 0)
