@@ -4,10 +4,10 @@
         Usiarios
     </a>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Ingrsar</a></li>
+        <li><a class="dropdown-item" href="agregarUsuarios">Ingrsar</a></li>
         <li><a class="dropdown-item" href="#">Actualizar</a></li>
         <li><a class="dropdown-item" href="#">Eliminar</a></li>
-        <li><a class="dropdown-item" href="#">Listar</a></li>
+        <li><a class="dropdown-item" href="listarUsuarios">Listar</a></li>
     </ul>
 </li>
 <li class="nav-item dropdown">
@@ -46,7 +46,47 @@
 <li class="nav-item">
     <a class="nav-link" href="iniciarSesion">Cerrar Sesión</a>
 </li>
-{% elif session_activa == None %}
+<!---->
+{% elif session_activa == 1 %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Computación
+    </a>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Ingrsar</a></li>
+        <li><a class="dropdown-item" href="#">Actualizar</a></li>
+        <li><a class="dropdown-item" href="#">Eliminar</a></li>
+        <li><a class="dropdown-item" href="#">Listar</a></li>
+    </ul>
+</li>
+<!---->
+{% elif session_activa == 2 %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Vehículos
+    </a>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Ingrsar</a></li>
+        <li><a class="dropdown-item" href="#">Actualizar</a></li>
+        <li><a class="dropdown-item" href="#">Eliminar</a></li>
+        <li><a class="dropdown-item" href="#">Listar</a></li>
+    </ul>
+</li>
+<!---->
+{% elif session_activa == 3 %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Oficina
+    </a>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Ingrsar</a></li>
+        <li><a class="dropdown-item" href="#">Actualizar</a></li>
+        <li><a class="dropdown-item" href="#">Eliminar</a></li>
+        <li><a class="dropdown-item" href="#">Listar</a></li>
+    </ul>
+</li>
+<!---->
+{% else %}
 <li class="nav-item">
     <a class="nav-link" href="iniciarSesion">Iniciar Sesión</a>
 </li>

@@ -12,6 +12,33 @@ def irInicioSesion(request):
     except:
         return render(request,"iniciarSesion.html")
 
+def irInicio(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+        if sesion != 0:
+            sesion = None
+    except:
+        sesion = None
+    return render(request,"index.html",{'sesion_activa':sesion})
+
+def irListarUsuarios(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    us = Usuario.objects.all()
+    return render(request,"listarUsuarios.html",{'sesion_activa':sesion, "usuarios":us})
+
+def irAgregarUsuarios(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    return render(request,"agregarUsuario.html",{'sesion_activa':sesion})
+
 def fxInicioSesion(request):
     usr = None
     try:
@@ -23,34 +50,3 @@ def fxInicioSesion(request):
             return render(request,"iniciarSesion.html"), {"mensaje":"contraseña no válida"}
     except Exception as ex:
         return render(request,"iniciarSesion.html",{"mensaje":ex})
-
-# def sesion(request):
-#     per = None
-#     try:
-#         per = Persona.objects.get(rut = request.POST["rut"])
-#         if(per.contrasenna == request.POST["contrasenna"]):
-#             request.session["sesion_activa"] = "Activa"
-#             return redirect(inicio)
-#         else:
-#             return render(request,"iniciar_sesion.html", {"mensaje":"contraseña no válida"})
-#     except Exception as ex:
-#         return render(request,"iniciar_sesion.html", {"mensaje":ex})
-
-def irInicio(request):
-    sesion = None
-    try:
-        sesion = request.session['sesion_activa']
-        if sesion != 0:
-            sesion = None
-    except:
-        sesion = None
-    return render(request,"index.html",{'sesion_activa':sesion})
-
-def irRespuesta(request):
-    sesion = None
-    try:
-        sesion = request.session['sesion_activa']
-    except:
-        return render(request,"iniciar_sesion.html")
-    return render(request,"respuesta.html",{'sesion_activa':sesion})
-    

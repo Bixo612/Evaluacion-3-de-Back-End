@@ -19,8 +19,9 @@ from . import views
 
 urlpatterns = [
     path('', views.irInicio),
-    path('respuesta', views.irRespuesta),
     path('iniciarSesion', views.irInicioSesion),
+    path('listarUsuarios', views.irListarUsuarios),
+    path('agregarUsuarios', views.irAgregarUsuarios),
     #
     path('fx_iniciarSesion', views.fxInicioSesion),
 
