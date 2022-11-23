@@ -50,3 +50,25 @@ def fxInicioSesion(request):
             return render(request,"iniciarSesion.html"), {"mensaje":"contraseña no válida"}
     except Exception as ex:
         return render(request,"iniciarSesion.html",{"mensaje":ex})
+
+def fxAgregarUsuario(request):
+    mensaje = None
+    us_username = request.POST['f_username']
+    us_password = request.POST['f_password']
+    us_email = request.POST['f_email']
+    us_nombre = request.POST['f_nombre']
+    us_perfil = request.POST['f_perfil']
+
+    try:
+        Usuario.objects.create(username=us_username, password=us_password, email=us_email, nombre=us_nombre, perfil = us_perfil)
+        mensaje = f"Se ha regitrado el usuario, {us_username}"
+    except Exception as ex:
+        if str(ex.__cause__).find('AppAdministracion_usuario.username') > 0:
+            mensaje = 'El nick ya se encuentra en uso'
+        elif str(ex.__cause__).find('AppAdministracion_usuario.email') > 0:
+            mensaje = 'El correo ya se encuentra en uso'
+        else:
+            mensaje = 'Ha ocurrido un error en la operación'
+    except Error as err:
+        mensaje = f'ha ocurrido un problema en la operación_, {err}'
+    return render(request,"respuesta.html",{'mensaje':mensaje})

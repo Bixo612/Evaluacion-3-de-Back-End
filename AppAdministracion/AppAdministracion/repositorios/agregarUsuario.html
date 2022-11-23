@@ -1,36 +1,42 @@
-{% extends "base.html" %} 
-{% block titulo %} Agregar usuario {% endblock %} 
+{% extends "base.html" %}
+{% block titulo %} Agregar usuario {% endblock %}
 {% block navegador%} {% include "navegador.html"%} {% endblock %}
 {% block body %}
 
 <form action="fx_agregarUsuario" method="post"> {% csrf_token %}
     <table>
         <tr>
-            <td>Usuario</td>
-            <td><input type="text" name="f_username" maxlength="25" required/></td>
+            <td><label class="form-label">Usuario</label></td>
+            <td><input class="form-control" type="text" name="f_username" maxlength="25" required /></td>
         </tr>
         <tr>
-            <td>Clave</td>
-            <td><input type="password" name="f_password" maxlength="40" required/></td>
+            <td><label class="form-label">Clave</label></td>
+            <td><input class="form-control" type="password" name="f_password" maxlength="40" required /></td>
         </tr>
         <tr>
-            <td>Email</td>
-            <td><input type="email" name="f_email" maxlength="60" required/></td>
+            <td><label class="form-label">Email</label></td>
+            <td><input class="form-control" type="email" name="f_email" maxlength="60" required /></td>
         </tr>
         <tr>
-            <td>Nombre</td>
-            <td><input type="text" name="f_nombre" maxlength="60" required/></td>
+            <td><label class="form-label">Nombre</label></td>
+            <td><input class="form-control" type="text" name="f_nombre" maxlength="60" required /></td>
         </tr>
         <tr>
-            <td>Perfil</td>
-            <td><input type="number" name="f_perfil" required/></td>
+            <td><label class="form-label">Perfil</label></td>
+            <td><select class="form-select" name="f_perfil" required>
+                    <option value=""></option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select></td>
         </tr>
         <tr>
             <td>
-                <input type="submit" value="Ingresar"/>
+                <input type="submit" class="btn btn-primary" value="Ingresar" />
             </td>
             <td>
-                <input type="reset" value="cancelar"/>
+                <input type="reset" class="btn btn-danger" value="Cancelar" />
             </td>
         </tr>
     </table>

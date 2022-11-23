@@ -27,7 +27,7 @@ class ArticuloOficina(models.Model):
 class Usuario(models.Model):
     username    = models.CharField (primary_key=True, max_length = 25)
     password    = models.CharField (max_length = 40)
-    email       = models.CharField (max_length = 60)
+    email       = models.CharField (unique= True, max_length = 60)
     nombre      = models.CharField (max_length = 60)
     perfil      = models.IntegerField ()
 

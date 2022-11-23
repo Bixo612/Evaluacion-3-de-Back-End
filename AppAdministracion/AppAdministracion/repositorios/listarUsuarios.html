@@ -3,7 +3,7 @@
 {% block navegador%}{% include "navegador.html"%}{% endblock %}
 {% block body %}
 
-<table>
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
@@ -23,7 +23,7 @@
             </th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table-group-divider">
         {% for us in usuarios %}
         <tr>
             <td>{{us.username}}</td>
