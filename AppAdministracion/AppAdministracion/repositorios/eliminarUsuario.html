@@ -1,19 +1,24 @@
-{% extends "base.html" %} 
-{% block titulo %} ELiminar usuario {% endblock %} 
+{% extends "base.html" %}
+{% block titulo %} ELiminar usuario {% endblock %}
 {% block navegador%}
-    {% include "navegador.html"%}
+{% include "navegador.html"%}
 {% endblock %}
 {% block body %}
 
 <form action="fx_eliminarUsuario" method="get"> {% csrf_token %}
-    <tr>
-        <td>Usuario</td>
-        <td><input type="text" name="f_username" maxlength="25" required/></td>
-    </tr>
-    <tr>
-        <td colspan="2"><input type="submit" value="Eliminar persona"/></td>
-    </tr>
+    <div class="col-6">
+        <div class="input-group">
+            <span class="input-group-text">Usuario</span>
+            <input type="text" name="f_username" class="form-control" maxlength="25" required />
+            <input type="submit" class="btn btn-danger" value="Eliminar Usuario" />
+        </div>
+        <div class="mb-3 col-6">
+            <div class="form-text">
+                {{mensaje}}
+            </div>
+        </div>
+    </div>
 </form>
-<h1>{{msj}}</h1>
+
 
 {% endblock %}

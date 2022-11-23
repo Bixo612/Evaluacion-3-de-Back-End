@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .models import Vehiculo, InsumoComputacional, ArticuloOficina, Usuario
 from msilib.schema import Error
 
+# Funciones de redirecion
+
 def irInicioSesion(request):
     try:
         if request.session['sesion_activa'] == 0 or request.session['sesion_activa'] == 1 or request.session['sesion_activa'] == 2 or request.session['sesion_activa'] ==3 :
@@ -38,6 +40,19 @@ def irAgregarUsuarios(request):
     except:
         return render(request,"iniciarSesion.html")
     return render(request,"agregarUsuario.html",{'sesion_activa':sesion})
+
+def irEliminarUsuarios(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    if sesion == 0:
+        return render(request,"eliminarUsuario.html",{'sesion_activa':sesion})
+    else:
+        return render(request,"iniciarSesion.html")
+
+# Funciones de interacion
 
 def fxInicioSesion(request):
     usr = None
