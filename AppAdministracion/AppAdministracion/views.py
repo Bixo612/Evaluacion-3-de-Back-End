@@ -4,7 +4,7 @@ from msilib.schema import Error
 
 def irInicioSesion(request):
     try:
-        if request.session['sesion_activa'] == 0:
+        if request.session['sesion_activa'] == 0 or request.session['sesion_activa'] == 1 or request.session['sesion_activa'] == 2 or request.session['sesion_activa'] ==3 :
             del request.session['sesion_activa']
             return render(request,"index.html")
         else:
@@ -16,7 +16,7 @@ def irInicio(request):
     sesion = None
     try:
         sesion = request.session['sesion_activa']
-        if sesion != 0:
+        if sesion != 0 and sesion != 1 and sesion != 2 and sesion != 3:
             sesion = None
     except:
         sesion = None
@@ -44,7 +44,7 @@ def fxInicioSesion(request):
     try:
         usr = Usuario.objects.get(username = request.POST["form_username"])
         if (usr.password == request.POST["form_password"]):
-            request.session['sesion_activa'] = 0
+            request.session['sesion_activa'] = usr.perfil
             return redirect(irInicio)
         else:
             return render(request,"iniciarSesion.html"), {"mensaje":"contraseña no válida"}

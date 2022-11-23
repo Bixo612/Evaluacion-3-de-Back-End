@@ -47,7 +47,7 @@
     <a class="nav-link" href="iniciarSesion">Cerrar Sesión</a>
 </li>
 <!---->
-{% elif session_activa == 1 %}
+{% elif sesion_activa == 1 %}
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         Computación
@@ -59,8 +59,11 @@
         <li><a class="dropdown-item" href="#">Listar</a></li>
     </ul>
 </li>
+<li class="nav-item">
+    <a class="nav-link" href="iniciarSesion">Cerrar Sesión</a>
+</li>
 <!---->
-{% elif session_activa == 2 %}
+{% elif sesion_activa == 2 %}
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         Vehículos
@@ -72,8 +75,11 @@
         <li><a class="dropdown-item" href="#">Listar</a></li>
     </ul>
 </li>
+<li class="nav-item">
+    <a class="nav-link" href="iniciarSesion">Cerrar Sesión</a>
+</li>
 <!---->
-{% elif session_activa == 3 %}
+{% elif sesion_activa == 3 %}
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         Oficina
@@ -84,6 +90,9 @@
         <li><a class="dropdown-item" href="#">Eliminar</a></li>
         <li><a class="dropdown-item" href="#">Listar</a></li>
     </ul>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="iniciarSesion">Cerrar Sesión</a>
 </li>
 <!---->
 {% else %}
