@@ -7,26 +7,24 @@
 <h1>Iniciar Sesión</h1>
 
 <form action="fx_iniciarSesion" method="post"> {% csrf_token %}
-    <table>
-        <tr>
-            <td>Usuario</td>
-            <td><input type="text" name="form_username" /></td>
-        </tr>
-        <tr>
-            <td>Contraseña</td>
-            <td><input type="password" name="form_password" /></td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" value="Iniciar sesion" />
-            </td>
-            <td>
-                <input type="reset" value="cancelar" />
-            </td>
-        </tr>
-    </table>
-
-    {{mensaje}}
-
+    <div class="mb-3 col-6">
+        <label class="form-label">Usuario</label>
+        <input type="text" class="form-control" name="form_username" />
+    </div>
+    <div class="mb-3 col-6">
+        <label class="form-label">Contraseña</label>
+        <input type="password" class="form-control" name="form_password" />
+    </div>
+    <div class="mb-3 col-6">
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <input type="submit" class="btn btn-primary" value="Iniciar sesion" />
+            <input type="reset" class="btn btn-danger" value="Cancelar" />
+        </div>
+    </div>
+    <div class="mb-3 col-6">
+        <div class="form-text">
+            {{mensaje}}
+        </div>
+    </div>
 </form>
 {% endblock %}
