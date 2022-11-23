@@ -36,7 +36,6 @@ def fxInicioSesion(request):
 #     except Exception as ex:
 #         return render(request,"iniciar_sesion.html", {"mensaje":ex})
 
-
 def irInicio(request):
     sesion = None
     try:

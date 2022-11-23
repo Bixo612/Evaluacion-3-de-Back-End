@@ -1,16 +1,20 @@
 {% extends "base.html" %}
+
 {% block titulo %}Iniciar sesión{% endblock %}
+
 {% block body %}
+
 <h1>Iniciar Sesión</h1>
+
 <form action="fx_iniciarSesion" method="post"> {% csrf_token %}
     <table>
         <tr>
             <td>Usuario</td>
-            <td><input type="text" name="form_username"/></td>
+            <td><input type="text" name="form_username" /></td>
         </tr>
         <tr>
             <td>Contraseña</td>
-            <td><input type="password" name="form_password"/></td>
+            <td><input type="password" name="form_password" /></td>
         </tr>
         <tr>
             <td>
@@ -21,6 +25,8 @@
             </td>
         </tr>
     </table>
+
     {{mensaje}}
+
 </form>
 {% endblock %}
