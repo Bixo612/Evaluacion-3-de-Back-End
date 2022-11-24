@@ -25,8 +25,6 @@ def irInicio(request):
         sesion = None
     return render(request,"index.html",{'sesion_activa':sesion})
 
-
-
 def irAgregarUsuarios(request):
     sesion = None
     try:
@@ -101,15 +99,8 @@ def fxAgregarVehiculo(request):
     ve_observaciones = request.POST['f_observaciones']
 
     try:
-        Vehiculo.objects.create(
-            patente = ve_patente, 
-            numero_chasis = ve_numero_chasis, 
-            marca = ve_marca, 
-            modelo = ve_modelo, 
-            ultima_revision = ve_ultima_revision, 
-            proxima_revision = ve_proxima_revision, 
-            observaciones = ve_observaciones)
-        mensaje = f"Se ha regitrado el vehiculo, {ve_patente}"
+        Vehiculo.objects.create(patente = ve_patente, numero_chasis = ve_numero_chasis, marca = ve_marca, modelo = ve_modelo, ultima_revision = ve_ultima_revision, proxima_revision = ve_proxima_revision, observaciones = ve_observaciones)
+        mensaje = f"Se ha regitrado el vehiculo {ve_patente} / {ve_marca} / {ve_modelo}"
     except Exception as ex:
         if str(ex.__cause__).find('AppAdministracion_vehiculo.patente') > 0:
             mensaje = 'Ya existe un registro con esa patente'

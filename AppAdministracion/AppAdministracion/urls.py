@@ -30,5 +30,6 @@ urlpatterns = [
     path('fx_iniciarSesion', views.fxInicioSesion),
     path('fx_agregarUsuario', views.fxAgregarUsuario),
     path('fx_eliminarUsuario', views.fxEliminarUsuario),
+    path('fx_agregarVehiculo', views.fxAgregarVehiculo),
     
 ]

@@ -29,8 +29,19 @@
             <td>{{us.username}}</td>
             <td>{{us.password}}</td>
             <td>{{us.email}}</td>
-            <td>{{us.nombre}}</td>
-            <td>{{us.perfil}}</td>
+            <td>{{us.nombre}}</td> 
+                {% if us.perfil == 0 %}
+                <td class="table-success">Administrador</td>
+                {% elif us.perfil == 1 %}
+                <td class="table-primary">Computación</td>
+                {% elif us.perfil == 2 %}
+                <td class="table-warning">Vehículos</td>
+                {% elif us.perfil == 3 %}
+                <td class="table-info">Oficina</td>
+                {% else %}
+                <td class="table-danger">{{us.nombre}}</td>
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
     </tbody>
