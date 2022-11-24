@@ -20,11 +20,15 @@ from . import views
 urlpatterns = [
     path('', views.irInicio),
     path('iniciarSesion', views.irInicioSesion),
-    path('listarUsuarios', views.irListarUsuarios),
     path('agregarUsuarios', views.irAgregarUsuarios),
     path('eliminarUsuarios', views.irEliminarUsuarios),
-    #
+    path('agregarVehiculos', views.irAgregarVehiculos),
+    # Funciones de listado
+    path('listarUsuarios', views.irListarUsuarios),
+    path('listarVehiculos', views.irListarVehiculos),
+    # Funciones de formulario de
     path('fx_iniciarSesion', views.fxInicioSesion),
     path('fx_agregarUsuario', views.fxAgregarUsuario),
-
+    path('fx_eliminarUsuario', views.fxEliminarUsuario),
+    
 ]

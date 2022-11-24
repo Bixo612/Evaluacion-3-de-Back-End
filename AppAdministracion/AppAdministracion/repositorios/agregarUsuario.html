@@ -2,7 +2,7 @@
 {% block titulo %} Agregar usuario {% endblock %}
 {% block navegador%} {% include "navegador.html"%} {% endblock %}
 {% block body %}
-
+<h2>Agregar usuario</h2>
 <form action="fx_agregarUsuario" method="post"> {% csrf_token %}
     <table>
         <tr>

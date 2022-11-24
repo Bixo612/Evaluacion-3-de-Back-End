@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Vehiculo, InsumoComputacional, ArticuloOficina, Usuario
 from msilib.schema import Error
+from inspect import ArgSpec
 
 # Funciones de redirecion
 
@@ -24,14 +25,7 @@ def irInicio(request):
         sesion = None
     return render(request,"index.html",{'sesion_activa':sesion})
 
-def irListarUsuarios(request):
-    sesion = None
-    try:
-        sesion = request.session['sesion_activa']
-    except:
-        return render(request,"iniciarSesion.html")
-    us = Usuario.objects.all()
-    return render(request,"listarUsuarios.html",{'sesion_activa':sesion, "usuarios":us})
+
 
 def irAgregarUsuarios(request):
     sesion = None
@@ -51,6 +45,14 @@ def irEliminarUsuarios(request):
         return render(request,"eliminarUsuario.html",{'sesion_activa':sesion})
     else:
         return render(request,"index.html",{'sesion_activa':sesion})
+
+def irAgregarVehiculos(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    return render(request,"agregarVehiculo.html",{'sesion_activa':sesion})
 
 # Funciones de interacion
 
@@ -87,25 +89,68 @@ def fxAgregarUsuario(request):
     except Error as err:
         mensaje = f'ha ocurrido un problema en la operación_, {err}'
     return render(request,"respuesta.html",{'mensaje':mensaje})
-    
+
+def fxAgregarVehiculo(request):
+    mensaje = None
+    ve_patente = request.POST['f_patente']
+    ve_numero_chasis = request.POST['f_numero_chasis']
+    ve_marca = request.POST['f_marca']
+    ve_modelo = request.POST['f_modelo']
+    ve_ultima_revision = request.POST['f_ultima_revision']
+    ve_proxima_revision = request.POST['f_proxima_revision']
+    ve_observaciones = request.POST['f_observaciones']
+
+    try:
+        Vehiculo.objects.create(
+            patente = ve_patente, 
+            numero_chasis = ve_numero_chasis, 
+            marca = ve_marca, 
+            modelo = ve_modelo, 
+            ultima_revision = ve_ultima_revision, 
+            proxima_revision = ve_proxima_revision, 
+            observaciones = ve_observaciones)
+        mensaje = f"Se ha regitrado el vehiculo, {ve_patente}"
+    except Exception as ex:
+        if str(ex.__cause__).find('AppAdministracion_vehiculo.patente') > 0:
+            mensaje = 'Ya existe un registro con esa patente'
+        elif str(ex.__cause__).find('AppAdministracion_usuario.numero_chasis') > 0:
+            mensaje = 'Ya existe un registro con ese numero de chasis'
+        else:
+            mensaje = 'Ha ocurrido un error en la operación'
+    except Error as err:
+        mensaje = f'ha ocurrido un problema en la operación_, {err}'
+    return render(request,"respuesta.html",{'mensaje':mensaje})
+
 def fxEliminarUsuario(request):
     mensaje = None
     try:
         usr = Usuario.objects.get(username = request.GET["f_username"])
         usr.delete()
         mensaje = "Persona eliminada"
+        return render(request, 'eliminar.html',{'mensaje':mensaje})
+    except Exception as ex:
+        if str(ex.args).find('does not exist') > 0:
+            mensaje = 'Usuario no exite'
+        else:
+            mensaje = 'Ha ocurrido un problema'        
+        return render(request,"eliminarUsuario.html", {'mensaje':mensaje})
 
+# Listar
 
-# def elimina(request):
-#     msj = None
-#     try:
-#         per = Persona.objects.get(rut = request.GET["rut_busqueda"])
-#         per.delete()
-#         msj = "Persona eliminada"
-#         return render(request, "eliminar.html",{"msj":msj})
-#     except Exception as ex:
-#         if str(ex.args).find('does not exist') > 0:
-#             msj = 'Rut no existe'
-#         else:
-#             msj = 'Ha ocurrido un problema'        
-#         return render(request,"eliminar.html", {"msj":msj})    
+def irListarUsuarios(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    us = Usuario.objects.all()
+    return render(request,"listarUsuarios.html",{'sesion_activa':sesion, "usuarios":us})
+
+def irListarVehiculos(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    ve = Vehiculo.objects.all()
+    return render(request,"listarVehiculos.html",{'sesion_activa':sesion, "vehiculos":ve})

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block titulo %} Agregar vehiculo {% endblock %}
+{% block navegador%} {% include "navegador.html"%} {% endblock %}
+{% block body %}
+
+<h2>Agregar vehiculo</h2>
+<form action="fx_agregarVehiculo" method="post"> {% csrf_token %}
+    <table>
+        <tr>
+            <td><label class="form-label">Patente</label></td>
+            <td><input class="form-control" type="text" name="f_patente" maxlength="6" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Número chasis</label></td>
+            <td><input class="form-control" type="password" name="f_numero_chasis" maxlength="17" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Marca</label></td>
+            <td><input class="form-control" type="text" name="f_marca" maxlength="10" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Modelo</label></td>
+            <td><input class="form-control" type="text" name="f_modelo" maxlength="10" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Ultima revisión</label></td>
+            <td><input class="form-control" type="date" name="f_ultima_revision" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Próxima revisión</label></td>
+            <td><input class="form-control" type="date" name="f_proxima_revision" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Obsevaciones</label></td>
+            <td><textarea class="form-control" name="f_observaciones" maxlength="200" rows="3"></textarea></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" class="btn btn-primary" value="Ingresar" />
+            </td>
+            <td>
+                <input type="reset" class="btn btn-danger" value="Cancelar" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+{% endblock %}
