@@ -15,6 +15,14 @@ def irInicioSesion(request):
     except:
         return render(request,"iniciarSesion.html")
 
+def irAgregarVehiculos(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    return render(request,"agregarVehiculo.html",{'sesion_activa':sesion})
+
 def irInicio(request):
     sesion = None
     try:
@@ -25,7 +33,9 @@ def irInicio(request):
         sesion = None
     return render(request,"index.html",{'sesion_activa':sesion})
 
-def irAgregarUsuarios(request):
+# Redireciones de crud de usuarios
+
+def irAgregarUsuario(request):
     sesion = None
     try:
         sesion = request.session['sesion_activa']
@@ -33,7 +43,7 @@ def irAgregarUsuarios(request):
         return render(request,"iniciarSesion.html")
     return render(request,"agregarUsuario.html",{'sesion_activa':sesion})
 
-def irEliminarUsuarios(request):
+def irEliminarUsuario(request):
     sesion = None
     try:
         sesion = request.session['sesion_activa']
@@ -44,13 +54,18 @@ def irEliminarUsuarios(request):
     else:
         return render(request,"index.html",{'sesion_activa':sesion})
 
-def irAgregarVehiculos(request):
+def irActualizarUsuario(request):
     sesion = None
     try:
         sesion = request.session['sesion_activa']
     except:
         return render(request,"iniciarSesion.html")
-    return render(request,"agregarVehiculo.html",{'sesion_activa':sesion})
+    if sesion == 0:
+        return render(request,"actualizarUsuario.html",{'sesion_activa':sesion})
+    else:
+        return render(request,"index.html",{'sesion_activa':sesion})
+
+
 
 # Funciones de interacion
 
@@ -65,6 +80,15 @@ def fxInicioSesion(request):
             return render(request,"iniciarSesion.html"), {"mensaje":"contraseña no válida"}
     except Exception as ex:
         return render(request,"iniciarSesion.html",{"mensaje":ex})
+
+def fx_ActualizarUsuario(request):
+    usr = None
+    mensaje = None
+    try:
+        usr = Usuario.objects.get(username = request.GET["ff_username"])
+        return render(request,'ActualizarUsuario.html',{"usr":usr})
+    except:
+        usr = None
 
 def fxAgregarUsuario(request):
     mensaje = None

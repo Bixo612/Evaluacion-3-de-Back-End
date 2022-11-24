@@ -20,16 +20,20 @@ from . import views
 urlpatterns = [
     path('', views.irInicio),
     path('iniciarSesion', views.irInicioSesion),
-    path('agregarUsuarios', views.irAgregarUsuarios),
-    path('eliminarUsuarios', views.irEliminarUsuarios),
     path('agregarVehiculos', views.irAgregarVehiculos),
+    
+    # Redirecion crud de usuaro
+    path('agregarUsuarios', views.irAgregarUsuario),
+    path('eliminarUsuarios', views.irEliminarUsuario),
+    path('actualizarUsuarios', views.irActualizarUsuario),
     # Funciones de listado
     path('listarUsuarios', views.irListarUsuarios),
     path('listarVehiculos', views.irListarVehiculos),
-    # Funciones de formulario de
-    path('fx_iniciarSesion', views.fxInicioSesion),
+    # Funciones de usuario
     path('fx_agregarUsuario', views.fxAgregarUsuario),
     path('fx_eliminarUsuario', views.fxEliminarUsuario),
+    path('fx_ActualizarUsuario', views.fx_ActualizarUsuario),
+    # 
     path('fx_agregarVehiculo', views.fxAgregarVehiculo),
-    
+    path('fx_iniciarSesion', views.fxInicioSesion),
 ]

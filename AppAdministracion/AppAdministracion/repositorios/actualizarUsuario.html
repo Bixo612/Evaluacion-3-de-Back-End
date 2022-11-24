@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block titulo %}Actualizar usuario{% endblock %}
+{% block navegador%}
+{% include "navegador.html"%}
+{% endblock %}
+{% block body %}
+<h2>Actualizar usuario</h2>
+<form action="fx_ActualizarUsuario" method="get"> {% csrf_token %}
+    <div class="col-6">
+        <div class="input-group">
+            <span class="input-group-text">Usuario</span>
+            <input type="text" name="ff_username" class="form-control" maxlength="25" required />
+            <input type="submit" class="btn btn-success" value="Buscar usuario" />
+        </div>
+        <div class="mb-3 col-6">
+            <div class="form-text">
+                {{mensaje}}
+            </div>
+        </div>
+    </div>
+</form>
+<hr>
+<!--
+{{usr}}
+<hr>
+-->
+<form action="fx_ActualizarUsuario" method="post"> {% csrf_token %}
+    <table>
+        <tr>
+            <td></td>
+            <td><label class="form-label">Datos actuales</label></td>
+            <td><label class="form-label">Datos nuevos</label></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Usuario</label></td>
+            <td><input type="text" class="form-control" disabled value="{{usr.username}}"></td>
+            <td><input class="form-control" type="text" name="f_username" maxlength="25" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Clave</label></td>
+            <td><input type="text" class="form-control" disabled value="{{usr.password}}"></td>
+            <td><input class="form-control" type="password" name="f_password" maxlength="40" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Email</label></td>
+            <td><input type="text" class="form-control" disabled value="{{usr.email}}"></td>
+            <td><input class="form-control" type="email" name="f_email" maxlength="60" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Nombre</label></td>
+            <td><input type="text" class="form-control" disabled value="{{usr.nombre}}"></td>
+            <td><input class="form-control" type="text" name="f_nombre" maxlength="60" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Perfil</label></td>
+            <!--<td><input type="text" class="form-control" disabled value="{{usr.perfil}}"></td>-->
+            <!---->
+            {% if usr.perfil == 0 %}
+            <td><input type="text" class="form-control" disabled value="Administrador"></td>
+            {% elif usr.perfil == 1 %}
+            <td><input type="text" class="form-control" disabled value="Computación"></td>
+            {% elif usr.perfil == 2 %}
+            <td><input type="text" class="form-control" disabled value="Vehículos"></td>
+            {% elif usr.perfil == 3 %}
+            <td><input type="text" class="form-control" disabled value="Oficina"></td>
+            {% else %}
+            <td><input type="text" class="form-control" disabled value="{{usr.nombre}}"></td>
+            {% endif %}
+            <!---->
+            <td><select class="form-select" name="f_perfil" required>
+                    <option value=""></option>
+                    <option value="0">Administrador</option>
+                    <option value="1">Computación</option>
+                    <option value="2">Vehículos</option>
+                    <option value="3">Oficina</option>
+                </select></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <input type="submit" class="btn btn-primary" value="Actualizar" />
+                    <input type="reset" class="btn btn-danger" value="Borrar" />
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>
+{% endblock %}

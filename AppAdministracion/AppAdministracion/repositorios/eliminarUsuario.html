@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-{% block titulo %} ELiminar usuario {% endblock %}
+{% block titulo %}ELiminar usuario{% endblock %}
 {% block navegador%}
 {% include "navegador.html"%}
 {% endblock %}
 {% block body %}
-
+<h2>Elimnar usuario</h2>
 <form action="fx_eliminarUsuario" method="get"> {% csrf_token %}
     <div class="col-6">
         <div class="input-group">
@@ -19,6 +19,4 @@
         </div>
     </div>
 </form>
-
-
 {% endblock %}
