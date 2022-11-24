@@ -50,7 +50,7 @@ def irEliminarUsuarios(request):
     if sesion == 0:
         return render(request,"eliminarUsuario.html",{'sesion_activa':sesion})
     else:
-        return render(request,"iniciarSesion.html")
+        return render(request,"index.html",{'sesion_activa':sesion})
 
 # Funciones de interacion
 
@@ -87,3 +87,25 @@ def fxAgregarUsuario(request):
     except Error as err:
         mensaje = f'ha ocurrido un problema en la operación_, {err}'
     return render(request,"respuesta.html",{'mensaje':mensaje})
+    
+def fxEliminarUsuario(request):
+    mensaje = None
+    try:
+        usr = Usuario.objects.get(username = request.GET["f_username"])
+        usr.delete()
+        mensaje = "Persona eliminada"
+
+
+# def elimina(request):
+#     msj = None
+#     try:
+#         per = Persona.objects.get(rut = request.GET["rut_busqueda"])
+#         per.delete()
+#         msj = "Persona eliminada"
+#         return render(request, "eliminar.html",{"msj":msj})
+#     except Exception as ex:
+#         if str(ex.args).find('does not exist') > 0:
+#             msj = 'Rut no existe'
+#         else:
+#             msj = 'Ha ocurrido un problema'        
+#         return render(request,"eliminar.html", {"msj":msj})    
