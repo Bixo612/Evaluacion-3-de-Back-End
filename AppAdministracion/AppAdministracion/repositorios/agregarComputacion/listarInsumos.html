@@ -1,0 +1,41 @@
+{% extends "base.html" %} 
+{% block titulo %}Lista de usuarios{% endblock %} 
+{% block navegador%}{% include "navegador.html"%}{% endblock %}
+{% block body %}
+<h2>Lista de usuarios</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Numero insumo
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Fecha Adquisicion
+            </th>
+            <th>
+                Marca
+            </th>
+            <th>
+                Stock
+            </th>
+            <th>
+                Descripción
+            </th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        {% for us in insumo %}
+        <tr>
+            <td>{{us.numero_insumo}}</td>
+            <td>{{us.nombre}}</td>
+            <td>{{us.fecha_adquisicion}}</td>
+            <td>{{us.marca}}</td>
+            <td>{{us.stock}}</td>
+            <td>{{us.descripcion}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+{% endblock %}

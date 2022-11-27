@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block titulo %}ELiminar Insumo{% endblock %}
+{% block navegador%}
+{% include "navegador.html"%}
+{% endblock %}
+{% block body %}
+<h2>Elimnar insumo</h2>
+<form action="eliminarInsumo" method="get"> {% csrf_token %}
+    <div class="col-6">
+        <div class="input-group">
+            <span class="input-group-text">Insumo</span>
+            <input type="number" name="numero_insumo" class="form-control" required />
+            <input type="submit" class="btn btn-danger" value="Eliminar Insumo" />
+        </div>
+        <div class="mb-3 col-6">
+            <div class="form-text">
+                {{mensaje}}
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

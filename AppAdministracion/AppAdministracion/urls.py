@@ -36,4 +36,13 @@ urlpatterns = [
     # 
     path('fx_agregarVehiculo', views.fxAgregarVehiculo),
     path('fx_iniciarSesion', views.fxInicioSesion),
+    #Crud de Computacion
+    path('agregarComputacion',views.agregarComputacion),
+    path('listarInsumos',views.listarInsumos),
+    path('actualizarInsumo',views.actualizarInsumo),
+    path('eliminarInsumo',views.eliminarInsumo),
+    path('buscarInsumo',views.buscarInsumo)
+
+
+
 ]
