@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block titulo %}ELiminar vehiculo{% endblock %}
+{% block navegador%}
+{% include "navegador.html"%}
+{% endblock %}
+{% block body %}
+<h2>Elimnar vehiculo</h2>
+<form action="fx_eliminarVehiculo" method="get"> {% csrf_token %}
+    <div class="col-6">
+        <div class="input-group">
+            <span class="input-group-text">Vehiculo</span>
+            <input type="text" name="f_patente" class="form-control" maxlength="25" required />
+            <input type="submit" class="btn btn-danger" value="Eliminar Vehiculo" />
+        </div>
+        <div class="mb-3 col-6">
+            <div class="form-text">
+                {{mensaje}}
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

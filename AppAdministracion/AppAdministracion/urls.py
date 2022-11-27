@@ -21,6 +21,8 @@ urlpatterns = [
     path('', views.irInicio),
     path('iniciarSesion', views.irInicioSesion),
     path('agregarVehiculos', views.irAgregarVehiculos),
+    path('eliminarVehiculos', views.irEliminarVehiculos),
+    path('actualizarVehiculos', views.irActualizarVehiculos),
     
     # Redirecion crud de usuaro
     path('agregarUsuarios', views.irAgregarUsuario),
@@ -35,6 +37,8 @@ urlpatterns = [
     path('fx_ActualizarUsuario', views.fx_ActualizarUsuario),
     # 
     path('fx_agregarVehiculo', views.fxAgregarVehiculo),
+    path('fx_ActualizarVehiculo', views.fx_ActualizarVehiculo),
+    path('fxActualizarVehiculo', views.fxActualizarVehiculo),
     path('fx_iniciarSesion', views.fxInicioSesion),
     #Crud de Computacion
     path('agregarComputacion',views.agregarComputacion),

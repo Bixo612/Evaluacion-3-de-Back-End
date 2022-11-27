@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block titulo %}Actualizar vehiculo{% endblock %}
+{% block navegador%}
+{% include "navegador.html"%}
+{% endblock %}
+{% block body %}
+<h2>Actualizar vehiculo</h2>
+<form action="fx_ActualizarVehiculo" method="get"> {% csrf_token %}
+    <div class="col-6">
+        <div class="input-group">
+            <span class="input-group-text">Vehiculo</span>
+            <input type="text" name="f_patente" class="form-control" maxlength="25" required />
+            <input type="submit" class="btn btn-success" value="Buscar vehiculo" />
+        </div>
+        <div class="mb-3 col-6">
+            <div class="form-text">
+                {{mensaje}}
+            </div>
+        </div>
+    </div>
+</form>
+<hr>
+<!--
+{{car}}
+<hr>
+-->
+<form action="fxActualizarVehiculo" method="post"> {% csrf_token %}
+    <table>
+        <tr>
+            <td></td>
+            <td><label class="form-label">Datos actuales</label></td>
+            <td><label class="form-label">Datos nuevos</label></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">patente</label></td>
+            <td><input type="text" class="form-control" name="oldpatente" value="{{car.patente}}"></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">N° chasis</label></td>
+            <td><input type="text" class="form-control" disabled value="{{car.numero_chasis}}"></td>
+            <td><input class="form-control" type="text" name="f_chasis" maxlength="40" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Marca</label></td>
+            <td><input type="text" class="form-control" disabled value="{{car.marca}}"></td>
+            <td><input class="form-control" type="text" name="f_marca" maxlength="60" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Modelo</label></td>
+            <td><input type="text" class="form-control" disabled value="{{car.modelo}}"></td>
+            <td><input class="form-control" type="text" name="f_modelo" maxlength="60" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Ultima revision</label></td>
+            <td><input type="text" class="form-control" disabled value="{{car.ultima_revision}}"></td>
+            <td><input class="form-control" type="date" name="f_ultima_revision" maxlength="60" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Proxima revision</label></td>
+            <td><input type="text" class="form-control" disabled value="{{car.proxima_revision}}"></td>
+            <td><input class="form-control" type="date" name="f_proxima_revision" maxlength="60" required /></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <input type="submit" class="btn btn-primary" value="Actualizar" />
+                    <input type="reset" class="btn btn-danger" value="Borrar" />
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>
+{% endblock %}

@@ -66,7 +66,24 @@ def irActualizarUsuario(request):
     else:
         return render(request,"index.html",{'sesion_activa':sesion})
 
+def irEliminarVehiculos(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    return render(request,"eliminarVehiculo.html",{'sesion_activa':sesion})
 
+def irActualizarVehiculos(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    if sesion == 0:
+        return render(request,"actualizarVehiculo.html",{'sesion_activa':sesion})
+    else:
+        return render(request,"index.html",{'sesion_activa':sesion})
 
 # Funciones de interacion
 
@@ -90,6 +107,16 @@ def fx_ActualizarUsuario(request):
         return render(request,'ActualizarUsuario.html',{"usr":usr})
     except:
         usr = None
+
+def fx_ActualizarVehiculo(request):
+    car = None
+    mensaje = None
+    try:
+        car = Vehiculo.objects.get(patente = request.GET["f_patente"])
+        return render(request,'actualizarVehiculo.html',{"car":car})
+    except:
+        mensaje = "el vehiculo no se encuentra registrado"
+        return render(request,'actualizarVehiculo.html',{"mensaje":mensaje})
 
 def fxAgregarUsuario(request):
     mensaje = None
@@ -151,6 +178,56 @@ def fxEliminarUsuario(request):
             mensaje = 'Ha ocurrido un problema'        
         return render(request,"eliminarUsuario.html", {'mensaje':mensaje})
 
+def fxEliminarVehiculo(request):
+    mensaje = None
+    try:
+        car = Vehiculo.objects.get(patente = request.GET["f_patente"])
+        car.delete()
+        mensaje = "Vehiculo eliminado"
+        return render(request, 'eliminarVehiculo.html',{'mensaje':mensaje})
+    except Exception as ex:
+        if str(ex.args).find('does not exist') > 0:
+            mensaje = 'Vehículo no existe'
+        else:
+            mensaje = 'Ha ocurrido un problema'        
+        return render(request,"eliminarVehiculo.html", {'mensaje':mensaje})
+
+def fxActualizarVehiculo(request):
+    car = None
+    mensaje = None
+    oldpatente = request.POST['oldpatente']
+    ve_numero_chasis = request.POST['f_chasis']
+    ve_marca = request.POST['f_marca']
+    ve_modelo = request.POST['f_modelo']
+    ve_ultima_revision = request.POST['f_ultima_revision']
+    ve_proxima_revision = request.POST['f_proxima_revision']
+    # ve_observaciones = request.POST['f_observaciones']
+
+    try:
+        print(oldpatente)
+        car = Vehiculo.objects.get(patente = oldpatente)
+
+        car.numero_chasis = ve_numero_chasis
+        car.marca = ve_marca
+        car.modelo = ve_modelo
+        car.ultima_revision = ve_ultima_revision
+        car.proxima_revision = ve_proxima_revision
+
+        car.save()
+        mensaje = f"Se ha actualizado el vehiculo {oldpatente} / {ve_marca} / {ve_modelo}"
+    
+    except Exception as ex:
+        if str(ex.__cause__).find('AppAdministracion_vehiculo.patente') > 0:
+            mensaje = 'patente no existe'
+        elif str(ex.__cause__).find('AppAdministracion_vehiculo.numero_chasis') > 0:
+            mensaje = 'Ya existe un registro con ese numero de chasis'
+        else:
+            print(ex.__cause__)
+            mensaje = 'Ha ocurrido un error en la operación'
+    except Error as err:
+        mensaje = f'ha ocurrido un problema en la operación_, {err}'
+    return render(request,"respuesta.html",{'mensaje':mensaje})
+
 # Listar
 
 def irListarUsuarios(request):
@@ -171,6 +248,14 @@ def irListarVehiculos(request):
     ve = Vehiculo.objects.all()
     return render(request,"listarVehiculos.html",{'sesion_activa':sesion, "vehiculos":ve})
 
+def irEliminarVehiculos(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    #ve = Vehiculo.objects.all()
+    return render(request,"eliminarVehiculo.html",{'sesion_activa':sesion})
 
 #Funciones CRUD Computacion
 
