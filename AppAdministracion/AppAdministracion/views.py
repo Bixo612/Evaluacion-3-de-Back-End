@@ -4,7 +4,15 @@ from msilib.schema import Error
 from inspect import ArgSpec
 from django.contrib.auth.decorators import login_required
 
-# Funciones de redirecion
+def irInicio(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+        if sesion != 0 and sesion != 1 and sesion != 2 and sesion != 3:
+            sesion = None
+    except:
+        sesion = None
+    return render(request,"index.html",{'sesion_activa':sesion})
 
 def irInicioSesion(request):
     try:
@@ -16,25 +24,19 @@ def irInicioSesion(request):
     except:
         return render(request,"iniciarSesion.html")
 
-def irAgregarVehiculos(request):
-    sesion = None
+def fxInicioSesion(request):
+    usr = None
     try:
-        sesion = request.session['sesion_activa']
-    except:
-        return render(request,"iniciarSesion.html")
-    return render(request,"agregarVehiculo.html",{'sesion_activa':sesion})
+        usr = Usuario.objects.get(username = request.POST["form_username"])
+        if (usr.password == request.POST["form_password"]):
+            request.session['sesion_activa'] = usr.perfil
+            return redirect(irInicio)
+        else:
+            return render(request,"iniciarSesion.html"), {"mensaje":"contraseña no válida"}
+    except Exception as ex:
+        return render(request,"iniciarSesion.html",{"mensaje":ex})    
 
-def irInicio(request):
-    sesion = None
-    try:
-        sesion = request.session['sesion_activa']
-        if sesion != 0 and sesion != 1 and sesion != 2 and sesion != 3:
-            sesion = None
-    except:
-        sesion = None
-    return render(request,"index.html",{'sesion_activa':sesion})
-
-# Redireciones de crud de usuarios
+# CRUD DE USUAIOS
 
 def irAgregarUsuario(request):
     sesion = None
@@ -66,6 +68,25 @@ def irActualizarUsuario(request):
     else:
         return render(request,"index.html",{'sesion_activa':sesion})
 
+# CRUD DE VEHICULOS
+
+def irAgregarVehiculos(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    return render(request,"agregarVehiculo.html",{'sesion_activa':sesion})
+
+def irListarVehiculos(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    ve = Vehiculo.objects.all()
+    return render(request,"listarVehiculos.html",{'sesion_activa':sesion, "vehiculos":ve})
+
 def irEliminarVehiculos(request):
     sesion = None
     try:
@@ -85,29 +106,6 @@ def irActualizarVehiculos(request):
     else:
         return render(request,"index.html",{'sesion_activa':sesion})
 
-# Funciones de interacion
-
-def fxInicioSesion(request):
-    usr = None
-    try:
-        usr = Usuario.objects.get(username = request.POST["form_username"])
-        if (usr.password == request.POST["form_password"]):
-            request.session['sesion_activa'] = usr.perfil
-            return redirect(irInicio)
-        else:
-            return render(request,"iniciarSesion.html"), {"mensaje":"contraseña no válida"}
-    except Exception as ex:
-        return render(request,"iniciarSesion.html",{"mensaje":ex})
-
-def fx_ActualizarUsuario(request):
-    usr = None
-    mensaje = None
-    try:
-        usr = Usuario.objects.get(username = request.GET["ff_username"])
-        return render(request,'ActualizarUsuario.html',{"usr":usr})
-    except:
-        usr = None
-
 def fx_ActualizarVehiculo(request):
     car = None
     mensaje = None
@@ -117,28 +115,6 @@ def fx_ActualizarVehiculo(request):
     except:
         mensaje = "el vehiculo no se encuentra registrado"
         return render(request,'actualizarVehiculo.html',{"mensaje":mensaje})
-
-def fxAgregarUsuario(request):
-    mensaje = None
-    us_username = request.POST['f_username']
-    us_password = request.POST['f_password']
-    us_email = request.POST['f_email']
-    us_nombre = request.POST['f_nombre']
-    us_perfil = request.POST['f_perfil']
-
-    try:
-        Usuario.objects.create(username=us_username, password=us_password, email=us_email, nombre=us_nombre, perfil = us_perfil)
-        mensaje = f"Se ha regitrado el usuario, {us_username}"
-    except Exception as ex:
-        if str(ex.__cause__).find('AppAdministracion_usuario.username') > 0:
-            mensaje = 'El nick ya se encuentra en uso'
-        elif str(ex.__cause__).find('AppAdministracion_usuario.email') > 0:
-            mensaje = 'El correo ya se encuentra en uso'
-        else:
-            mensaje = 'Ha ocurrido un error en la operación'
-    except Error as err:
-        mensaje = f'ha ocurrido un problema en la operación_, {err}'
-    return render(request,"respuesta.html",{'mensaje':mensaje})
 
 def fxAgregarVehiculo(request):
     mensaje = None
@@ -163,20 +139,6 @@ def fxAgregarVehiculo(request):
     except Error as err:
         mensaje = f'ha ocurrido un problema en la operación_, {err}'
     return render(request,"respuesta.html",{'mensaje':mensaje})
-
-def fxEliminarUsuario(request):
-    mensaje = None
-    try:
-        usr = Usuario.objects.get(username = request.GET["f_username"])
-        usr.delete()
-        mensaje = "Persona eliminada"
-        return render(request, 'eliminar.html',{'mensaje':mensaje})
-    except Exception as ex:
-        if str(ex.args).find('does not exist') > 0:
-            mensaje = 'Usuario no exite'
-        else:
-            mensaje = 'Ha ocurrido un problema'        
-        return render(request,"eliminarUsuario.html", {'mensaje':mensaje})
 
 def fxEliminarVehiculo(request):
     mensaje = None
@@ -228,6 +190,83 @@ def fxActualizarVehiculo(request):
         mensaje = f'ha ocurrido un problema en la operación_, {err}'
     return render(request,"respuesta.html",{'mensaje':mensaje})
 
+def fx_ActualizarUsuario(request):
+    
+    usr = None
+    mensaje = None
+    try:
+        usr = Usuario.objects.get(username = request.GET["ff_username"])
+        return render(request,'ActualizarUsuario.html',{"usr":usr})
+    except:
+        usr = None
+
+    if usr == None:
+        numero_insumo = None
+        try:
+            numero_insumo = request.POST["f_numero_insumo"]
+        except:
+            numero_insumo = None
+
+        if numero_insumo != None:
+            usr = InsumoComputacional.objects.get(numero_insumo = numero_insumo)
+            us_username = request.POST['f_username']
+            us_password = request.POST['f_password']
+            us_email = request.POST['f_email']
+            us_nombre = request.POST['f_nombre']
+            us_perfil = request.POST['f_perfil']
+
+            try:
+                Usuario.objects.create(username=us_username, password=us_password, email=us_email, nombre=us_nombre, perfil = us_perfil)
+                mensaje = f"Se ha actualizado el usuario, {us_username}"
+            except:
+                mensaje = f"ha ocurrido un error al actualizar el insumo"
+            return render(request, "ActualizarUsuario", {"mensaje":mensaje})
+        else:
+            mensaje = "No se ha encontrado el insumo"
+            return render(request, "ActualizarUsuario", {"mensaje":mensaje})
+    else:
+        mensaje = "No se encontró el insumo solicitado"
+        return render(request, "ActualizarUsuario", {"mensaje":mensaje})
+
+
+def fxAgregarUsuario(request):
+    mensaje = None
+    us_username = request.POST['f_username']
+    us_password = request.POST['f_password']
+    us_email = request.POST['f_email']
+    us_nombre = request.POST['f_nombre']
+    us_perfil = request.POST['f_perfil']
+
+    try:
+        Usuario.objects.create(username=us_username, password=us_password, email=us_email, nombre=us_nombre, perfil = us_perfil)
+        mensaje = f"Se ha regitrado el usuario, {us_username}"
+    except Exception as ex:
+        if str(ex.__cause__).find('AppAdministracion_usuario.username') > 0:
+            mensaje = 'El nick ya se encuentra en uso'
+        elif str(ex.__cause__).find('AppAdministracion_usuario.email') > 0:
+            mensaje = 'El correo ya se encuentra en uso'
+        else:
+            mensaje = 'Ha ocurrido un error en la operación'
+    except Error as err:
+        mensaje = f'ha ocurrido un problema en la operación_, {err}'
+    return render(request,"respuesta.html",{'mensaje':mensaje})
+
+
+def fxEliminarUsuario(request):
+    mensaje = None
+    try:
+        usr = Usuario.objects.get(username = request.GET["f_username"])
+        usr.delete()
+        mensaje = "Persona eliminada"
+        return render(request, 'eliminar.html',{'mensaje':mensaje})
+    except Exception as ex:
+        if str(ex.args).find('does not exist') > 0:
+            mensaje = 'Usuario no exite'
+        else:
+            mensaje = 'Ha ocurrido un problema'        
+        return render(request,"eliminarUsuario.html", {'mensaje':mensaje})
+
+
 # Listar
 
 def irListarUsuarios(request):
@@ -238,15 +277,6 @@ def irListarUsuarios(request):
         return render(request,"iniciarSesion.html")
     us = Usuario.objects.all()
     return render(request,"listarUsuarios.html",{'sesion_activa':sesion, "usuarios":us})
-
-def irListarVehiculos(request):
-    sesion = None
-    try:
-        sesion = request.session['sesion_activa']
-    except:
-        return render(request,"iniciarSesion.html")
-    ve = Vehiculo.objects.all()
-    return render(request,"listarVehiculos.html",{'sesion_activa':sesion, "vehiculos":ve})
 
 def irEliminarVehiculos(request):
     sesion = None
