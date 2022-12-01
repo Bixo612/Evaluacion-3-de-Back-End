@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block titulo %}Buscar Insumo{% endblock %}
+{% block navegador%}
+{% include "navegador.html"%}
+{% endblock %}
+{% block body %}
+<h2>Buscar Insumo</h2>
+<form action="buscarOficina" method="get"> {% csrf_token %}
+    <div class="col-6">
+        <div class="input-group">
+            <span class="input-group-text">Insumo</span>
+            <input type="text" name="buscarOficina" class="form-control" required  placeholder="Escribe el numero del articulo"/>
+            <input type="submit" class="btn btn-success" value="Buscar Oficina" />
+        </div>
+        <div class="mb-3 col-6">
+            <div class="form-text">
+                {{mensaje}}
+            </div>
+            <div class="mt-4">
+                <table style="visibility:{{visibilidad}};">
+                    <tr>
+                        <td></td>
+                        <td><label class="form-label">Datos actuales</label></td>
+                    </tr>
+                    <tr>
+                        <td><label class="form-label">Numero articulo oficina</label></td>
+                        <td><input type="number" class="form-control" disabled value="{{ins.numero_articulo}}"></td>
+                  
+                    </tr>
+                    <tr>
+                        <td><label class="form-label">Nombre articulo oficina</label></td>
+                        <td><input type="text" class="form-control" disabled value="{{ins.nombre}}"></td>
+                     
+                    </tr>
+                    <tr>
+                        <td><label class="form-label">Ubicacion</label></td>
+                        <td><input type="text" class="form-control" disabled value="{{ins.ubicacion}}"></td>
+                
+                    </tr>
+                    <tr>
+                        <td><label class="form-label">Stock</label></td>
+                        <td><input type="number" class="form-control" disabled value="{{ins.stock}}"></td>
+                  
+                    </tr>
+                    <tr>
+                        <td><label class="form-label">Descripción</label></td>
+                        <td><input type="text" class="form-control" disabled value="{{ins.descripcion}}"></td>
+                
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

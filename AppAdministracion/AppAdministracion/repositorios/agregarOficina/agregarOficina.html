@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block titulo %} Agregar Insumo Computacional {% endblock %}
+{% block navegador%} {% include "navegador.html"%} {% endblock %}
+{% block body %}
+<h2>Agregar Insumo Computacional</h2>
+<form action="agregarOficina" method="post"> {% csrf_token %}
+    <table>
+        <tr>
+            <td><label class="form-label">Numero articulo oficina</label></td>
+            <td><input class="form-control" type="number" name="f_numero_oficina"  /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Nombre articulo oficina</label></td>
+            <td><input class="form-control" type="text" name="f_nombre_oficina" /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Ubicacion articulo oficina</label></td>
+            <td><input class="form-control" type="text" name="f_ubicacion"  /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Stock articulo oficina</label></td>
+            <td><input class="form-control" type="number" name="f_stock_oficina"  /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Descripción articulo oficina</label></td>
+            <td><input class="form-control" type="text" name="f_descripcion_oficina"  /></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" class="btn btn-primary" value="Ingresar" />
+            </td>
+            <td>
+                <input type="reset" class="btn btn-danger" value="Cancelar" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+{{mensaje}}
+
+{% endblock %}

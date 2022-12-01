@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block titulo %}Actualizar articulo oficina{% endblock %}
+{% block navegador%}
+{% include "navegador.html"%}
+{% endblock %}
+{% block body %}
+<h2>Actualizar ARticulo oficina</h2>
+<form action="actualizarOficina" method="get"> {% csrf_token %}
+    <div class="col-6">
+        <div class="input-group">
+            <span class="input-group-text">Numero de Articulo oficina</span>
+            <input type="text" name="nOficina" class="form-control" maxlength="25" required />
+            <input type="submit" class="btn btn-success" value="Buscar Insumo" />
+        </div>
+        <div class="mb-3 col-6">
+            <div class="form-text">
+                {{mensaje}}
+            </div>
+        </div>
+    </div>
+</form>
+<hr>
+<!--
+{{usr}}
+<hr>
+-->
+<form action="actualizarOficina" method="post"> {% csrf_token %}
+    <table>
+        <tr>
+            <td></td>
+            <td><label class="form-label">Datos actuales</label></td>
+            <td><label class="form-label">Datos nuevos</label></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Numero Articulo Oficina</label></td>
+            <td><input type="number" class="form-control" disabled value="{{usr.numero_articulo}}"></td>
+            <td><input class="form-control" type="number" name="f_numero_oficina" maxlength="25" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Nombre</label></td>
+            <td><input type="text" class="form-control" disabled value="{{usr.nombre}}"></td>
+            <td><input class="form-control" type="text" name="f_nombre_oficina" maxlength="40" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Ubicacion</label></td>
+            <td><input type="text" class="form-control" disabled value="{{usr.ubicacion}}"></td>
+            <td><input class="form-control" type="text" name="f_ubicacion" maxlength="60" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Stock</label></td>
+            <td><input type="number" class="form-control" disabled value="{{usr.stock}}"></td>
+            <td><input class="form-control" type="number" name="f_stock_oficina" maxlength="60" required /></td>
+        </tr>
+        <tr>
+            <td><label class="form-label">Descripción</label></td>
+            <td><input type="text" class="form-control" disabled value="{{usr.descripcion}}"></td>
+            <td><input class="form-control" type="text" name="f_descripcion_oficina" maxlength="60" required /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <input type="submit" class="btn btn-primary" value="Actualizar" />
+                    <input type="reset" class="btn btn-danger" value="Borrar" />
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="mb-3 col-6">
+        <div class="form-text">
+                {{msj}}
+        </div>
+     </div>
+
+</form>
+{% endblock %}

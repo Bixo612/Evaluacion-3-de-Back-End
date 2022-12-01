@@ -45,8 +45,14 @@ urlpatterns = [
     path('listarInsumos',views.listarInsumos),
     path('actualizarInsumo',views.actualizarInsumo),
     path('eliminarInsumo',views.eliminarInsumo),
-    path('buscarInsumo',views.buscarInsumo)
+    path('buscarInsumo',views.buscarInsumo),
 
+    #
 
+    path('agregarOficina',views.agregarOficina),
+    path('listarOficina',views.listarOficina),
+    path('actualizarOficina',views.actualizarOficina),
+    path('eliminarOficina',views.eliminarOficina),
+    path('buscarOficina',views.buscarOficina)
 
 ]

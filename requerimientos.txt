@@ -1,0 +1,35 @@
+Los perfiles pueden realizar lo siguiente:
+Administrador de oficina (Nro. de perfil 1):
+    • Ingresar artículo de oficina
+    • Actualizar artículo de oficina
+    • Eliminar artículo de oficina
+    • Listar los artículos de oficina
+    • Buscar articulo de oficina por nombre
+    • Buscar articulo de oficina por número de articulo
+    • Buscar articulo de oficina por ubicación
+Administrador de Vehículos (Nro. de perfil 2):
+    • Ingresar vehículo
+    • Actualizar vehículo
+    • Eliminar vehículo
+    • Listar los vehículos
+    • Buscar vehículo por patente
+    • Buscar vehículo por número de chasis
+    • Buscar vehículos por modelo
+    • Buscar vehículos por marca
+    • Buscar vehículos cuya revisión técnica se encuentre a un mes o menos de vencer
+    • Buscar vehículos cuya revisión técnica hubiera vencido
+Administrador de computación (Nro. de perfil 3):
+    • Ingresar artículo de computación
+    • Actualizar artículo de computación
+    • Eliminar artículo de computación
+    • Listar los artículos de computación
+    • Buscar artículo de computación por nombre
+    • Buscar artículo de computación por número de insumo
+Informática y Telecomunicaciones
+Analista Programador/Ingeniería en Informática
+Administrador general (Nro. de perfil 0):
+    • Todas las acciones anteriormente descritas en los perfiles
+    • Ingresar usuario
+    • Actualizar usuario
+    • Eliminar usuario
+    • Listar los usuarios
