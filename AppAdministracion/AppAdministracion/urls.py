@@ -37,6 +37,7 @@ urlpatterns = [
     path('actualizarVehiculos', views.irActualizarVehiculos),
     path('fx_iniciarSesion', views.fxInicioSesion),
     path('listarVehiculos', views.irListarVehiculos),
+    path('listarRevision', views.irListarRevision),
     path('fx_eliminarVehiculo', views.fxEliminarVehiculo),
     path('buscarVehiculo', views.irBuscarVehiculos),
     path('fxBuscarVehiculo', views.fxBuscarVehiculo),

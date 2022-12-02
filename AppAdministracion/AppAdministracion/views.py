@@ -3,6 +3,9 @@ from .models import Vehiculo, InsumoComputacional, ArticuloOficina, Usuario
 from msilib.schema import Error
 from inspect import ArgSpec
 from django.contrib.auth.decorators import login_required
+from datetime import date
+from datetime import timedelta
+
 
 # Funciones de redirecion
 
@@ -274,6 +277,21 @@ def irListarVehiculos(request):
     if sesion == 0 or sesion == 2:
         ve = Vehiculo.objects.all()
         return render(request, "listarVehiculos.html", {'sesion_activa': sesion, "vehiculos": ve})
+    else:
+        return render(request, "index.html", {'sesion_activa': sesion})
+
+def irListarRevision(request):
+    sesion = None
+    today = date.today()
+    en1mes = today + timedelta(days=30)
+
+    try:
+        sesion = request.session["sesion_activa"]
+    except:
+        return render(request, "index.html", {'sesion_activa': sesion})
+    if sesion == 0 or sesion == 2:
+        ve = Vehiculo.objects.all()
+        return render(request, "listarRevision.html", {'sesion_activa': sesion, "vehiculos": ve ,'hoy':today,'en1mes':en1mes})
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
 

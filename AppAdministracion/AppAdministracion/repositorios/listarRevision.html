@@ -1,0 +1,70 @@
+{% extends "base.html" %} 
+{% block titulo %} Lista de vehiculos {% endblock %} 
+{% block navegador%}{% include "navegador.html"%}{% endblock %}
+{% block body %}
+<h2>Vehiculos con revision por vencer</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Patente</th>
+            <th>Número chasis</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Ultima revisión</th>
+            <th>Próxima revisión</th>
+            <th>Observaciones</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        {% for ve in vehiculos %}
+            {% if ve.proxima_revision < en1mes %}
+                {% if ve.proxima_revision > hoy %}
+                <tr>
+                    <td>{{ve.patente}}</td>
+                    <td>{{ve.numero_chasis}}</td>
+                    <td>{{ve.marca}}</td>
+                    <td>{{ve.modelo}}</td>
+                    <td>{{ve.ultima_revision}}</td>
+                    <td>{{ve.proxima_revision}}</td>
+                    <td>{{ve.observaciones}}</td>
+                </tr>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+<h2>Vehiculos con revision vencida</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Patente</th>
+            <th>Número chasis</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Ultima revisión</th>
+            <th>Próxima revisión</th>
+            <th>Observaciones</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        {% for ve in vehiculos %}
+            {% if ve.proxima_revision < hoy %}
+            <tr>
+                <td>{{ve.patente}}</td>
+                <td>{{ve.numero_chasis}}</td>
+                <td>{{ve.marca}}</td>
+                <td>{{ve.modelo}}</td>
+                <td>{{ve.ultima_revision}}</td>
+                <td>{{ve.proxima_revision}}</td>
+                <td>{{ve.observaciones}}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+<!--
+{{hoy}}<br>
+{{en1mes}}
+-->
+
+{% endblock %}
