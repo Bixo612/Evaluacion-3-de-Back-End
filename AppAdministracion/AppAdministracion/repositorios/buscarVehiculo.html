@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block titulo %}Buscar Insumo{% endblock %}
+{% block navegador%}
+{% include "navegador.html"%}
+{% endblock %}
+{% block body %}
+<h2>Buscar Vehiculo</h2>
+<form action="fxBuscarVehiculo" method="get"> {% csrf_token %}
+
+    <div class="input-group">
+        <span class="input-group-text">Vehiculo</span>
+
+        <input type="text" name="buscarVehiculo" class="form-control" required
+            placeholder="Ingrese dato del vehiculo" />
+
+        <select class="form-select" aria-label="Default select example" name="busqueda">
+            <option selected disabled>Buscar por</option>
+            <option value="chasis">N° Chasis</option>
+            <option value="patente">Patente</option>
+        </select>
+
+        <input type="submit" class="btn btn-success" value="Buscar Vehiculo" />
+    </div>
+    <div class="mb-3 col-6">
+        <div class="form-text">
+            {{mensaje}}
+        </div>
+        <div class="mt-4">
+            <table>
+                <tr>
+                    <td><label class="form-label">N° Chasis</label></td>
+                    <td><input type="number" class="form-control" disabled value="{{bus.numero_chasis}}"></td>
+                </tr>
+                <tr>
+                    <td><label class="form-label">Patente</label></td>
+                    <td><input type="text" class="form-control" disabled value="{{bus.patente}}"></td>
+                </tr>
+                <tr>
+                    <td><label class="form-label">Marca</label></td>
+                    <td><input type="text" class="form-control" disabled value="{{bus.marca}}"></td>
+                </tr>
+                <tr>
+                    <td><label class="form-label">Modelo</label></td>
+                    <td><input type="text" class="form-control" disabled value="{{bus.modelo}}"></td>
+                </tr>
+                <tr>
+                    <td><label class="form-label">Ultima revision</label></td>
+                    <td><input type="text" class="form-control" disabled value="{{bus.ultima_revision|date:'Y-m-d'}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label class="form-label">Proxima revision</label></td>
+                    <td><input type="text" class="form-control" disabled value="{{bus.proxima_revision|date:'Y-m-d'}}">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+</form>
+
+
+{% endblock %}

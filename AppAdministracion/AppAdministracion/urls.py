@@ -38,12 +38,16 @@ urlpatterns = [
     path('fx_iniciarSesion', views.fxInicioSesion),
     path('listarVehiculos', views.irListarVehiculos),
     path('fx_eliminarVehiculo', views.fxEliminarVehiculo),
+    path('buscarVehiculo', views.irBuscarVehiculos),
+    path('fxBuscarVehiculo', views.fxBuscarVehiculo),
+    path('buscarMarcaModelo', views.irBuscarMarcaModelo),
     #Crud de Computacion
     path('agregarComputacion',views.agregarComputacion),
     path('listarInsumos',views.listarInsumos),
     path('actualizarInsumo',views.actualizarInsumo),
     path('eliminarInsumo',views.eliminarInsumo),
     path('buscarInsumo',views.buscarInsumo),
+    path('fx_BuscarMarcaModelo',views.fx_BuscarMarcaModelo),
     #Crud de oficina
     path('agregarOficina',views.agregarOficina),
     path('listarOficina',views.listarOficina),
