@@ -33,7 +33,8 @@
         </tr>
         <tr>
             <td><label class="form-label">patente</label></td>
-            <td><input type="text" class="form-control" name="oldpatente" value="{{car.patente}}"></td>
+            <td><input type="text" class="form-control" disabled hiden value="{{car.patente}}"></td>
+            <td><input type="text" class="form-control" name="oldpatente" hidden value="{{car.patente}}"></td>
         </tr>
         <tr>
             <td><label class="form-label">N° chasis</label></td>
@@ -60,7 +61,10 @@
             <td><input type="text" class="form-control" disabled value="{{car.proxima_revision}}"></td>
             <td><input class="form-control" type="date" name="f_proxima_revision" maxlength="60" required /></td>
         </tr>
-
+        <tr>
+            <td><label class="form-label">Obsevaciones</label></td>
+            <td colspan=2><textarea class="form-control" name="f_observaciones" maxlength="200" rows="3"></textarea></td>
+        </tr>
         <tr>
             <td></td>
             <td></td>

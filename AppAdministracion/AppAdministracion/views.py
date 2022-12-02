@@ -16,14 +16,6 @@ def irInicioSesion(request):
     except:
         return render(request,"iniciarSesion.html")
 
-def irAgregarVehiculos(request):
-    sesion = None
-    try:
-        sesion = request.session['sesion_activa']
-    except:
-        return render(request,"iniciarSesion.html")
-    return render(request,"agregarVehiculo.html",{'sesion_activa':sesion})
-
 def irInicio(request):
     sesion = None
     try:
@@ -33,59 +25,6 @@ def irInicio(request):
     except:
         sesion = None
     return render(request,"index.html",{'sesion_activa':sesion})
-
-# Redireciones de crud de usuarios
-
-def irAgregarUsuario(request):
-    sesion = None
-    try:
-        sesion = request.session['sesion_activa']
-    except:
-        return render(request,"iniciarSesion.html")
-    return render(request,"agregarUsuario.html",{'sesion_activa':sesion})
-
-def irEliminarUsuario(request):
-    sesion = None
-    try:
-        sesion = request.session['sesion_activa']
-    except:
-        return render(request,"iniciarSesion.html")
-    if sesion == 0:
-        return render(request,"eliminarUsuario.html",{'sesion_activa':sesion})
-    else:
-        return render(request,"index.html",{'sesion_activa':sesion})
-
-def irActualizarUsuario(request):
-    sesion = None
-    try:
-        sesion = request.session['sesion_activa']
-    except:
-        return render(request,"iniciarSesion.html")
-    if sesion == 0:
-        return render(request,"actualizarUsuario.html",{'sesion_activa':sesion})
-    else:
-        return render(request,"index.html",{'sesion_activa':sesion})
-
-def irEliminarVehiculos(request):
-    sesion = None
-    try:
-        sesion = request.session['sesion_activa']
-    except:
-        return render(request,"iniciarSesion.html")
-    return render(request,"eliminarVehiculo.html",{'sesion_activa':sesion})
-
-def irActualizarVehiculos(request):
-    sesion = None
-    try:
-        sesion = request.session['sesion_activa']
-    except:
-        return render(request,"iniciarSesion.html")
-    if sesion == 0:
-        return render(request,"actualizarVehiculo.html",{'sesion_activa':sesion})
-    else:
-        return render(request,"index.html",{'sesion_activa':sesion})
-
-# Funciones de interacion
 
 def fxInicioSesion(request):
     usr = None
@@ -99,60 +38,207 @@ def fxInicioSesion(request):
     except Exception as ex:
         return render(request,"iniciarSesion.html",{"mensaje":ex})
 
+# CRUD DE USUARIOS
+
+    # REDIRECIONES
+
+def irAgregarUsuario(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    if sesion == 0:
+        return render(request,"crudUsuarios/agregarUsuario.html",{'sesion_activa':sesion})
+    else:
+        return render(request,"index.html",{'sesion_activa':sesion})
+
+def irEliminarUsuario(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    if sesion == 0:
+        return render(request,"crudUsuarios/eliminarUsuario.html",{'sesion_activa':sesion})
+    else:
+        return render(request,"index.html",{'sesion_activa':sesion})
+
+def irActualizarUsuario(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    if sesion == 0:
+        return render(request,"crudUsuarios/actualizarUsuario.html",{'sesion_activa':sesion})
+    else:
+        return render(request,"index.html",{'sesion_activa':sesion})
+
+def irListarUsuarios(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    if sesion == 0:
+        us = Usuario.objects.all()
+        return render(request,"crudUsuarios/listarUsuarios.html",{'sesion_activa':sesion, "usuarios":us})
+    else:
+        return render(request,"index.html",{'sesion_activa':sesion})
+
+    # FUNCIONES
+
 def fx_ActualizarUsuario(request):
     sesion = None
     try:
         sesion = request.session["sesion_activa"]
     except:
-        return render(request,"iniciarSesion.html")
-    usr = None
-    msj = None
-    try:
-        usr = Usuario.objects.get(username = request.GET["ff_username"])
-        return render(request, "actualizarUsuario.html",{"usr":usr,"sesion_activa":sesion})
-    except:
+        return render(request,"index.html",{'sesion_activa':sesion})
+    if sesion == 0:
         usr = None
-    
-    if usr == None:
-        nick = None
+        msj = None
         try:
-            nick = request.POST["f_username"]
+            usr = Usuario.objects.get(username = request.GET["ff_username"])
+            return render(request, "crudUsuarios/actualizarUsuario.html",{"usr":usr,"sesion_activa":sesion})
         except:
+            usr = None
+        
+        if usr == None:
             nick = None
-
-        if nick != None:
-            usr = Usuario.objects.get(username=nick)
-            clave = request.POST["f_password"]
-            correo = request.POST["f_email"]
-            nombr = request.POST["f_nombre"]
-            perf = request.POST["f_perfil"]
-            #
-            
-            usr.password = clave
-            usr.email = correo
-            usr.nombre = nombr
-            usr.perfil = perf
             try:
-                usr.save()
-                msj = "Se ha actualizado el articulo de oficina"
+                nick = request.POST["f_username"]
             except:
-                msj = f"ha ocurrido un error al actualizar el articulo"
-            return render(request, "actualizarUsuario.html", {"msj":msj,"sesion_activa":sesion})
+                nick = None
+
+            if nick != None:
+                usr = Usuario.objects.get(username=nick)
+                clave = request.POST["f_password"]
+                correo = request.POST["f_email"]
+                nombr = request.POST["f_nombre"]
+                perf = request.POST["f_perfil"]
+                #
+                
+                usr.password = clave
+                usr.email = correo
+                usr.nombre = nombr
+                usr.perfil = perf
+                try:
+                    usr.save()
+                    msj = "Se ha actualizado el articulo de oficina"
+                except:
+                    msj = f"ha ocurrido un error al actualizar el articulo"
+                return render(request, "crudUsuarios/actualizarUsuario.html", {"msj":msj,"sesion_activa":sesion})
+            else:
+                msj = "No se ha encontrado el articulo"
+                return render(request, "crudUsuarios/actualizarUsuario.html", {"msj":msj,"sesion_activa":sesion})
         else:
-            msj = "No se ha encontrado el articulo"
-            return render(request, "actualizarUsuario.html", {"msj":msj,"sesion_activa":sesion})
+            msj = "No se encontró el insumo solicitado"
+            return render(request, "crudUsuarios/actualizarUsuario.html", {"msj":msj,"sesion_activa":sesion})
     else:
-        msj = "No se encontró el insumo solicitado"
-        return render(request, "actualizarUsuario.html", {"msj":msj,"sesion_activa":sesion})
+        return render(request,"index.html",{'sesion_activa':sesion})
 
+def fxAgregarUsuario(request):
+    sesion = None
+    try:
+        sesion = request.session["sesion_activa"]
+    except:
+        return render(request,"index.html",{'sesion_activa':sesion})
+    if sesion == 0:
+        mensaje = None
+        us_username = request.POST['f_username']
+        us_password = request.POST['f_password']
+        us_email = request.POST['f_email']
+        us_nombre = request.POST['f_nombre']
+        us_perfil = request.POST['f_perfil']
+        try:
+            Usuario.objects.create(username=us_username, password=us_password, email=us_email, nombre=us_nombre, perfil = us_perfil)
+            mensaje = f"Se ha regitrado el usuario, {us_username}"
+        except Exception as ex:
+            if str(ex.__cause__).find('AppAdministracion_usuario.username') > 0:
+                mensaje = 'El nick ya se encuentra en uso'
+            elif str(ex.__cause__).find('AppAdministracion_usuario.email') > 0:
+                mensaje = 'El correo ya se encuentra en uso'
+            else:
+                mensaje = 'Ha ocurrido un error en la operación'
+        except Error as err:
+            mensaje = f'ha ocurrido un problema en la operación_, {err}'
+        return render(request,"respuesta.html",{'mensaje':mensaje})
+    else:
+        return render(request,"index.html",{'sesion_activa':sesion})
 
+def fxEliminarUsuario(request):
+    sesion = None
+    try:
+        sesion = request.session["sesion_activa"]
+    except:
+        return render(request,"index.html",{'sesion_activa':sesion})
+    if sesion == 0:
+        mensaje = None
+        try:
+            usr = Usuario.objects.get(username = request.GET["f_username"])
+            usr.delete()
+            mensaje = "Persona eliminada"
+            return render(request, 'crudUsuarios/eliminarUsuario.html',{'mensaje':mensaje,'sesion_activa':sesion})
+        except Exception as ex:
+            if str(ex.args).find('does not exist') > 0:
+                mensaje = 'Usuario no exite'
+            else:
+                mensaje = 'Ha ocurrido un problema'        
+            return render(request,"crudUsuarios/eliminarUsuario.html", {'mensaje':mensaje,'sesion_activa':sesion})
+    else:
+        return render(request,"index.html",{'sesion_activa':sesion})
 
+# CRUD DE VEHICULOS
 
+    # REDIRECIONES
 
+def irListarVehiculos(request):
+    sesion = None
+    try:
+        sesion = request.session["sesion_activa"]
+    except:
+        return render(request,"index.html",{'sesion_activa':sesion})
+    if sesion == 0 or sesion == 2:
+        ve = Vehiculo.objects.all()
+        return render(request,"listarVehiculos.html",{'sesion_activa':sesion, "vehiculos":ve})
+    else:
+        return render(request,"index.html",{'sesion_activa':sesion})    
 
+def irActualizarVehiculos(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    if sesion == 0 or sesion == 2:
+        return render(request,"actualizarVehiculo.html",{'sesion_activa':sesion})
+    else:
+        return render(request,"index.html",{'sesion_activa':sesion})
 
+def irEliminarVehiculos(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    if sesion == 0 or sesion == 2:
+        return render(request,"eliminarVehiculo.html",{'sesion_activa':sesion})
+    else:
+        return render(request,"index.html",{'sesion_activa':sesion})
 
-    
+def irAgregarVehiculos(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request,"iniciarSesion.html")
+    if sesion == 0 or sesion == 2:
+        return render(request,"agregarVehiculo.html",{'sesion_activa':sesion})
+    else:
+        return render(request,"index.html",{'sesion_activa':sesion})
+
+    # FUNCIONES
 
 def fx_ActualizarVehiculo(request):
     car = None
@@ -164,28 +250,6 @@ def fx_ActualizarVehiculo(request):
         mensaje = "el vehiculo no se encuentra registrado"
         return render(request,'actualizarVehiculo.html',{"mensaje":mensaje})
 
-def fxAgregarUsuario(request):
-    mensaje = None
-    us_username = request.POST['f_username']
-    us_password = request.POST['f_password']
-    us_email = request.POST['f_email']
-    us_nombre = request.POST['f_nombre']
-    us_perfil = request.POST['f_perfil']
-
-    try:
-        Usuario.objects.create(username=us_username, password=us_password, email=us_email, nombre=us_nombre, perfil = us_perfil)
-        mensaje = f"Se ha regitrado el usuario, {us_username}"
-    except Exception as ex:
-        if str(ex.__cause__).find('AppAdministracion_usuario.username') > 0:
-            mensaje = 'El nick ya se encuentra en uso'
-        elif str(ex.__cause__).find('AppAdministracion_usuario.email') > 0:
-            mensaje = 'El correo ya se encuentra en uso'
-        else:
-            mensaje = 'Ha ocurrido un error en la operación'
-    except Error as err:
-        mensaje = f'ha ocurrido un problema en la operación_, {err}'
-    return render(request,"respuesta.html",{'mensaje':mensaje})
-
 def fxAgregarVehiculo(request):
     mensaje = None
     ve_patente = request.POST['f_patente']
@@ -195,8 +259,8 @@ def fxAgregarVehiculo(request):
     ve_ultima_revision = request.POST['f_ultima_revision']
     ve_proxima_revision = request.POST['f_proxima_revision']
     ve_observaciones = request.POST['f_observaciones']
-
     try:
+        sesion = request.session['sesion_activa']
         Vehiculo.objects.create(patente = ve_patente, numero_chasis = ve_numero_chasis, marca = ve_marca, modelo = ve_modelo, ultima_revision = ve_ultima_revision, proxima_revision = ve_proxima_revision, observaciones = ve_observaciones)
         mensaje = f"Se ha regitrado el vehiculo {ve_patente} / {ve_marca} / {ve_modelo}"
     except Exception as ex:
@@ -208,35 +272,22 @@ def fxAgregarVehiculo(request):
             mensaje = 'Ha ocurrido un error en la operación'
     except Error as err:
         mensaje = f'ha ocurrido un problema en la operación_, {err}'
-    return render(request,"respuesta.html",{'mensaje':mensaje})
-
-def fxEliminarUsuario(request):
-    mensaje = None
-    try:
-        usr = Usuario.objects.get(username = request.GET["f_username"])
-        usr.delete()
-        mensaje = "Persona eliminada"
-        return render(request, 'eliminar.html',{'mensaje':mensaje})
-    except Exception as ex:
-        if str(ex.args).find('does not exist') > 0:
-            mensaje = 'Usuario no exite'
-        else:
-            mensaje = 'Ha ocurrido un problema'        
-        return render(request,"eliminarUsuario.html", {'mensaje':mensaje})
+    return render(request,"respuesta.html",{'mensaje':mensaje,'sesion_activa':sesion})
 
 def fxEliminarVehiculo(request):
     mensaje = None
     try:
+        sesion = request.session['sesion_activa']
         car = Vehiculo.objects.get(patente = request.GET["f_patente"])
         car.delete()
         mensaje = "Vehiculo eliminado"
-        return render(request, 'eliminarVehiculo.html',{'mensaje':mensaje})
+        return render(request, 'eliminarVehiculo.html',{'mensaje':mensaje,'sesion_activa':sesion})
     except Exception as ex:
         if str(ex.args).find('does not exist') > 0:
             mensaje = 'Vehículo no existe'
         else:
             mensaje = 'Ha ocurrido un problema'        
-        return render(request,"eliminarVehiculo.html", {'mensaje':mensaje})
+        return render(request,"eliminarVehiculo.html", {'mensaje':mensaje,'sesion_activa':sesion})
 
 def fxActualizarVehiculo(request):
     car = None
@@ -247,7 +298,7 @@ def fxActualizarVehiculo(request):
     ve_modelo = request.POST['f_modelo']
     ve_ultima_revision = request.POST['f_ultima_revision']
     ve_proxima_revision = request.POST['f_proxima_revision']
-    # ve_observaciones = request.POST['f_observaciones']
+    ve_observaciones = request.POST['f_observaciones']
 
     try:
         print(oldpatente)
@@ -258,6 +309,7 @@ def fxActualizarVehiculo(request):
         car.modelo = ve_modelo
         car.ultima_revision = ve_ultima_revision
         car.proxima_revision = ve_proxima_revision
+        car.observaciones = ve_observaciones
 
         car.save()
         mensaje = f"Se ha actualizado el vehiculo {oldpatente} / {ve_marca} / {ve_modelo}"
@@ -274,36 +326,19 @@ def fxActualizarVehiculo(request):
         mensaje = f'ha ocurrido un problema en la operación_, {err}'
     return render(request,"respuesta.html",{'mensaje':mensaje})
 
-# Listar
+# CRUD COMPUTACION
 
-def irListarUsuarios(request):
+def listarInsumos(request):
     sesion = None
     try:
         sesion = request.session['sesion_activa']
     except:
         return render(request,"iniciarSesion.html")
-    us = Usuario.objects.all()
-    return render(request,"listarUsuarios.html",{'sesion_activa':sesion, "usuarios":us})
-
-def irListarVehiculos(request):
-    sesion = None
-    try:
-        sesion = request.session['sesion_activa']
-    except:
-        return render(request,"iniciarSesion.html")
-    ve = Vehiculo.objects.all()
-    return render(request,"listarVehiculos.html",{'sesion_activa':sesion, "vehiculos":ve})
-
-def irEliminarVehiculos(request):
-    sesion = None
-    try:
-        sesion = request.session['sesion_activa']
-    except:
-        return render(request,"iniciarSesion.html")
-    #ve = Vehiculo.objects.all()
-    return render(request,"eliminarVehiculo.html",{'sesion_activa':sesion})
-
-#Funciones CRUD Computacion
+    if sesion == 0 or sesion == 1: 
+        insumo = InsumoComputacional.objects.all()
+        return render(request,"crudInsumosComputacion/listarInsumos.html",{"insumo":insumo,"sesion_activa":sesion})
+    else:
+        return render(request,"index.html",{'sesion_activa':sesion})
 
 def agregarComputacion(request):
     sesion = None
@@ -329,17 +364,6 @@ def agregarComputacion(request):
     except:
         return render(request,"crudInsumosComputacion/agregarComputacion.html",{'mensaje':mensaje,"sesion_activa":sesion})
     return render(request,"crudInsumosComputacion/agregarComputacion.html",{'mensaje':mensaje,"sesion_activa":sesion})  
-
-
-def listarInsumos(request):
-    sesion = None
-    try:
-        sesion = request.session['sesion_activa']
-    except:
-        return render(request,"iniciarSesion.html")
-    insumo = InsumoComputacional.objects.all()
-    return render(request,"crudInsumosComputacion/listarInsumos.html",{"insumo":insumo,"sesion_activa":sesion})
-
 
 def eliminarInsumo(request):
     sesion = None
@@ -441,7 +465,6 @@ def buscarInsumo(request):
     except Exception as ex:
                   mensaje = 'Error en la matrix'  
     return render(request,"crudInsumosComputacion/buscarInsumo.html",{mensaje:'mensaje',"sesion_activa":sesion,"visibilidad":visibilidad})
-
 
 #Funciones CRUD Oficina
 
