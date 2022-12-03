@@ -6,7 +6,7 @@
 {% block body %}
 <h2>Elimnar insumo</h2>
 <form action="eliminarInsumo" method="get"> {% csrf_token %}
-    <div class="col-6">
+    <div class="col-md-12 col-lg-6">
         <div class="input-group">
             <span class="input-group-text">Insumo</span>
             <input type="number" name="numero_insumo" class="form-control" required />

@@ -350,7 +350,6 @@ def fxAgregarVehiculo(request):
         mensaje = f'ha ocurrido un problema en la operación_, {err}'
     return render(request, "respuesta.html", {'mensaje': mensaje, 'sesion_activa': sesion})
 
-
 def fxEliminarVehiculo(request):
     mensaje = None
     try:
@@ -365,7 +364,6 @@ def fxEliminarVehiculo(request):
         else:
             mensaje = 'Ha ocurrido un problema'
         return render(request, "eliminarVehiculo.html", {'mensaje': mensaje, 'sesion_activa': sesion})
-
 
 def fxActualizarVehiculo(request):
     car = None
@@ -406,7 +404,6 @@ def fxActualizarVehiculo(request):
 
 # CRUD COMPUTACION
 
-
 def listarInsumos(request):
     sesion = None
     try:
@@ -418,7 +415,6 @@ def listarInsumos(request):
         return render(request, "crudInsumosComputacion/listarInsumos.html", {"insumo": insumo, "sesion_activa": sesion})
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
-
 
 def agregarComputacion(request):
     sesion = None
@@ -449,7 +445,6 @@ def agregarComputacion(request):
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
 
-
 def eliminarInsumo(request):
     sesion = None
     try:
@@ -472,7 +467,6 @@ def eliminarInsumo(request):
             return render(request, "crudInsumosComputacion/eliminarInsumo.html", {mensaje: 'mensaje', "sesion_activa": sesion})
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
-
 
 def actualizarInsumo(request):
     sesion = None
@@ -526,7 +520,6 @@ def actualizarInsumo(request):
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
 
-
 def buscarInsumo(request):
     sesion = None
     datos = None
@@ -569,7 +562,6 @@ def buscarInsumo(request):
 
 # Funciones CRUD Oficina
 
-
 def agregarOficina(request):
     sesion = None
     try:
@@ -598,7 +590,6 @@ def agregarOficina(request):
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
 
-
 def listarOficina(request):
     sesion = None
     try:
@@ -610,7 +601,6 @@ def listarOficina(request):
         return render(request, "agregarOficina/listarOficina.html", {"oficina": oficina, "sesion_activa": sesion})
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
-
 
 def eliminarOficina(request):
     sesion = None
@@ -634,7 +624,6 @@ def eliminarOficina(request):
             return render(request, "agregarOficina/eliminarOficina.html", {mensaje: 'mensaje', "sesion_activa": sesion})
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
-
 
 def actualizarOficina(request):
     sesion = None

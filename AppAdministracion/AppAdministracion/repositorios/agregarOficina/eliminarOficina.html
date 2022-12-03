@@ -4,11 +4,11 @@
 {% include "navegador.html"%}
 {% endblock %}
 {% block body %}
-<h2>Elimnar articulo oficina</h2>
+<h2>Elimnar artículo oficina</h2>
 <form action="eliminarOficina" method="get"> {% csrf_token %}
     <div class="col-6">
         <div class="input-group">
-            <span class="input-group-text">Articulo oficina</span>
+            <span class="input-group-text">Artículo oficina</span>
             <input type="number" name="numero_articulo" class="form-control" required />
             <input type="submit" class="btn btn-danger" value="Eliminar Articulo" />
         </div>

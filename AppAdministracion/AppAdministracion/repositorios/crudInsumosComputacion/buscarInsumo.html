@@ -4,48 +4,39 @@
 {% include "navegador.html"%}
 {% endblock %}
 {% block body %}
-<h2>Buscar Insumo</h2>
+<h2>Buscar insumo computacional</h2>
 <form action="buscarInsumo" method="get"> {% csrf_token %}
-    <div class="col-6">
+    <div class="col-md-12 col-lg-6">
         <div class="input-group">
             <span class="input-group-text">Insumo</span>
             <input type="text" name="buscarInsumo" class="form-control" required  placeholder="Escribe el numero o el nombre del insumo"/>
             <input type="submit" class="btn btn-success" value="Buscar Insumo" />
         </div>
-        <div class="mb-3 col-6">
+        <div class="mb-3">
             <div class="form-text">
                 {{mensaje}}
             </div>
             <div class="mt-4">
-                <table style="visibility:{{visibilidad}};">
-                    <tr>
-                        <td></td>
-                        <td><label class="form-label">Datos actuales</label></td>
-                    </tr>
+                <table class="table" style="visibility:{{visibilidad}};">
                     <tr>
                         <td><label class="form-label">Numero insumo</label></td>
                         <td><input type="number" class="form-control" disabled value="{{ins.numero_insumo}}"></td>
-                  
                     </tr>
                     <tr>
                         <td><label class="form-label">Nombre</label></td>
                         <td><input type="text" class="form-control" disabled value="{{ins.nombre}}"></td>
-                     
                     </tr>
                     <tr>
                         <td><label class="form-label">Fecha adquisición</label></td>
                         <td><input type="date" class="form-control" disabled value="{{ins.fecha_adquisicion|date:'Y-m-d'}}"></td>
-                     
                     </tr>
                     <tr>
                         <td><label class="form-label">Marca</label></td>
                         <td><input type="text" class="form-control" disabled value="{{ins.marca}}"></td>
-                
                     </tr>
                     <tr>
                         <td><label class="form-label">Stock</label></td>
                         <td><input type="number" class="form-control" disabled value="{{ins.stock}}"></td>
-                  
                     </tr>
                     <tr>
                         <td><label class="form-label">Descripción</label></td>
