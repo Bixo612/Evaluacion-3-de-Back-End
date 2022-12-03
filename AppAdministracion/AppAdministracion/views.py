@@ -281,7 +281,6 @@ def irListarRevision(request):
 
 def fx_BuscarMarcaModelo(request):
     sesion = None
-    bus = None
     try:
         sesion = request.session['sesion_activa']
         tipo_dato = request.GET["tipo_dato"]
@@ -316,14 +315,19 @@ def fxBuscarVehiculo(request):
     return render(request, "buscarVehiculo.html", {'mensaje': mensaje, 'sesion_activa': sesion})
 
 def fx_ActualizarVehiculo(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request, "iniciarSesion.html")
     car = None
     mensaje = None
     try:
         car = Vehiculo.objects.get(patente=request.GET["f_patente"])
-        return render(request, 'actualizarVehiculo.html', {"car": car})
+        return render(request, 'actualizarVehiculo.html', {"car": car,'sesion_activa': sesion})
     except:
         mensaje = "el vehiculo no se encuentra registrado"
-        return render(request, 'actualizarVehiculo.html', {"mensaje": mensaje})
+        return render(request, 'actualizarVehiculo.html', {"mensaje": mensaje,'sesion_activa': sesion})
 
 def fxAgregarVehiculo(request):
     mensaje = None
@@ -366,6 +370,11 @@ def fxEliminarVehiculo(request):
         return render(request, "eliminarVehiculo.html", {'mensaje': mensaje, 'sesion_activa': sesion})
 
 def fxActualizarVehiculo(request):
+    sesion = None
+    try:
+        sesion = request.session['sesion_activa']
+    except:
+        return render(request, "iniciarSesion.html")
     car = None
     mensaje = None
     oldpatente = request.POST['oldpatente']
@@ -389,7 +398,7 @@ def fxActualizarVehiculo(request):
 
         car.save()
         mensaje = f"Se ha actualizado el vehiculo {oldpatente} / {ve_marca} / {ve_modelo}"
-
+        return render(request, "respuesta.html", {'mensaje': mensaje,'sesion_activa':sesion})
     except Exception as ex:
         if str(ex.__cause__).find('AppAdministracion_vehiculo.patente') > 0:
             mensaje = 'patente no existe'
@@ -400,7 +409,7 @@ def fxActualizarVehiculo(request):
             mensaje = 'Ha ocurrido un error en la operación'
     except Error as err:
         mensaje = f'ha ocurrido un problema en la operación_, {err}'
-    return render(request, "respuesta.html", {'mensaje': mensaje})
+    return render(request, "respuesta.html", {'mensaje': mensaje,'sesion_activa':sesion})
 
 # CRUD COMPUTACION
 
