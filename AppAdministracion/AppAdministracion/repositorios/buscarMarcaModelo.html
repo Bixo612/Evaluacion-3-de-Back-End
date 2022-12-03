@@ -5,21 +5,22 @@
 {% endblock %}
 {% block body %}
 <h2>Buscar Vehiculo</h2>
-
+<p>Búsqueda por marca o modelo</p>
 <form action="fx_BuscarMarcaModelo" method="get"> {% csrf_token %}
-
-    <div class="input-group">
-        <span class="input-group-text">Vehiculo</span>
-        <input type="text" name="variable" class="form-control" required placeholder="Ingrese dato del vehiculo" />
-        <select class="form-select" aria-label="Default select example" name="tipo_dato">
-            <option selected disabled>Buscar por</option>
-            <option value="marca">Marca</option>
-            <option value="modelo">Modelo</option>
-        </select>
-        <input type="submit" class="btn btn-success" value="Buscar Vehiculo" />
+    <div class="col-md-12 col-lg-6">
+        <div class="input-group">
+            <span class="input-group-text">Vehiculo</span>
+            <input type="text" name="variable" class="form-control" required placeholder="Ingrese dato del vehiculo" />
+            <select class="form-select" aria-label="Default select example" name="tipo_dato">
+                <option selected disabled>Buscar por</option>
+                <option value="marca">Marca</option>
+                <option value="modelo">Modelo</option>
+            </select>
+            <input type="submit" class="btn btn-success" value="Buscar Vehiculo" />
+        </div>
     </div>
-
 </form>
+<br>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -34,31 +35,31 @@
     </thead>
     <tbody class="table-group-divider">
         {% for ve in vehiculos %}
-            {% if tipo_dato == "marca" %}
-                {% if ve.marca == variable%}
-                <tr>
-                    <td>{{ve.patente}}</td>
-                    <td>{{ve.numero_chasis}}</td>
-                    <td>{{ve.marca}}</td>
-                    <td>{{ve.modelo}}</td>
-                    <td>{{ve.ultima_revision}}</td>
-                    <td>{{ve.proxima_revision}}</td>
-                    <td>{{ve.observaciones}}</td>
-                </tr>
-                {% endif %}
-            {% elif tipo_dato == "modelo" %}
-                {% if ve.modelo == variable%}
-                <tr>
-                    <td>{{ve.patente}}</td>
-                    <td>{{ve.numero_chasis}}</td>
-                    <td>{{ve.marca}}</td>
-                    <td>{{ve.modelo}}</td>
-                    <td>{{ve.ultima_revision}}</td>
-                    <td>{{ve.proxima_revision}}</td>
-                    <td>{{ve.observaciones}}</td>
-                </tr>
-                {% endif %}
-            {% endif %}
+        {% if tipo_dato == "marca" %}
+        {% if ve.marca == variable%}
+        <tr>
+            <td>{{ve.patente}}</td>
+            <td>{{ve.numero_chasis}}</td>
+            <td>{{ve.marca}}</td>
+            <td>{{ve.modelo}}</td>
+            <td>{{ve.ultima_revision}}</td>
+            <td>{{ve.proxima_revision}}</td>
+            <td>{{ve.observaciones}}</td>
+        </tr>
+        {% endif %}
+        {% elif tipo_dato == "modelo" %}
+        {% if ve.modelo == variable%}
+        <tr>
+            <td>{{ve.patente}}</td>
+            <td>{{ve.numero_chasis}}</td>
+            <td>{{ve.marca}}</td>
+            <td>{{ve.modelo}}</td>
+            <td>{{ve.ultima_revision}}</td>
+            <td>{{ve.proxima_revision}}</td>
+            <td>{{ve.observaciones}}</td>
+        </tr>
+        {% endif %}
+        {% endif %}
         {% endfor %}
     </tbody>
 </table>

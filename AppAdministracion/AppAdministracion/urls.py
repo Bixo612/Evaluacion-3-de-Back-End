@@ -42,13 +42,13 @@ urlpatterns = [
     path('buscarVehiculo', views.irBuscarVehiculos),
     path('fxBuscarVehiculo', views.fxBuscarVehiculo),
     path('buscarMarcaModelo', views.irBuscarMarcaModelo),
+    path('fx_BuscarMarcaModelo',views.fx_BuscarMarcaModelo),
     #Crud de Computacion
     path('agregarComputacion',views.agregarComputacion),
     path('listarInsumos',views.listarInsumos),
     path('actualizarInsumo',views.actualizarInsumo),
     path('eliminarInsumo',views.eliminarInsumo),
-    path('buscarInsumo',views.buscarInsumo),
-    path('fx_BuscarMarcaModelo',views.fx_BuscarMarcaModelo),
+    path('buscarInsumo',views.buscarInsumo),   
     #Crud de oficina
     path('agregarOficina',views.agregarOficina),
     path('listarOficina',views.listarOficina),

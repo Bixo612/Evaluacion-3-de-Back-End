@@ -6,9 +6,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import date
 from datetime import timedelta
 
-
 # Funciones de redirecion
-
 
 def irInicioSesion(request):
     try:
@@ -20,7 +18,6 @@ def irInicioSesion(request):
     except:
         return render(request, "iniciarSesion.html")
 
-
 def irInicio(request):
     sesion = None
     try:
@@ -30,7 +27,6 @@ def irInicio(request):
     except:
         sesion = None
     return render(request, "index.html", {'sesion_activa': sesion})
-
 
 def fxInicioSesion(request):
     usr = None
@@ -48,7 +44,6 @@ def fxInicioSesion(request):
 
     # REDIRECIONES
 
-
 def irAgregarUsuario(request):
     sesion = None
     try:
@@ -59,7 +54,6 @@ def irAgregarUsuario(request):
         return render(request, "crudUsuarios/agregarUsuario.html", {'sesion_activa': sesion})
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
-
 
 def irEliminarUsuario(request):
     sesion = None
@@ -72,7 +66,6 @@ def irEliminarUsuario(request):
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
 
-
 def irActualizarUsuario(request):
     sesion = None
     try:
@@ -83,7 +76,6 @@ def irActualizarUsuario(request):
         return render(request, "crudUsuarios/actualizarUsuario.html", {'sesion_activa': sesion})
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
-
 
 def irListarUsuarios(request):
     sesion = None
@@ -99,7 +91,6 @@ def irListarUsuarios(request):
 
     # FUNCIONES
 
-
 def fx_ActualizarUsuario(request):
     sesion = None
     try:
@@ -114,7 +105,6 @@ def fx_ActualizarUsuario(request):
             return render(request, "crudUsuarios/actualizarUsuario.html", {"usr": usr, "sesion_activa": sesion})
         except:
             usr = None
-
         if usr == None:
             nick = None
             try:
@@ -129,7 +119,6 @@ def fx_ActualizarUsuario(request):
                 nombr = request.POST["f_nombre"]
                 perf = request.POST["f_perfil"]
                 #
-
                 usr.password = clave
                 usr.email = correo
                 usr.nombre = nombr
@@ -138,17 +127,16 @@ def fx_ActualizarUsuario(request):
                     usr.save()
                     msj = "Se ha actualizado el articulo de oficina"
                 except:
-                    msj = f"ha ocurrido un error al actualizar el articulo"
+                    msj = f"ha ocurrido un error al actualizar el usuario"
                 return render(request, "crudUsuarios/actualizarUsuario.html", {"msj": msj, "sesion_activa": sesion})
             else:
-                msj = "No se ha encontrado el articulo"
+                msj = "No se ha encontrado el usuario"
                 return render(request, "crudUsuarios/actualizarUsuario.html", {"msj": msj, "sesion_activa": sesion})
         else:
-            msj = "No se encontró el insumo solicitado"
+            msj = "No se encontró el usuario solicitado"
             return render(request, "crudUsuarios/actualizarUsuario.html", {"msj": msj, "sesion_activa": sesion})
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
-
 
 def fxAgregarUsuario(request):
     sesion = None
@@ -180,7 +168,6 @@ def fxAgregarUsuario(request):
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
 
-
 def fxEliminarUsuario(request):
     sesion = None
     try:
@@ -207,7 +194,6 @@ def fxEliminarUsuario(request):
 
     # REDIRECIONES
 
-
 def irActualizarVehiculos(request):
     sesion = None
     try:
@@ -218,7 +204,6 @@ def irActualizarVehiculos(request):
         return render(request, "actualizarVehiculo.html", {'sesion_activa': sesion})
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
-
 
 def irEliminarVehiculos(request):
     sesion = None
@@ -231,7 +216,6 @@ def irEliminarVehiculos(request):
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
 
-
 def irAgregarVehiculos(request):
     sesion = None
     try:
@@ -243,7 +227,6 @@ def irAgregarVehiculos(request):
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
 
-
 def irBuscarVehiculos(request):
     sesion = None
     try:
@@ -254,7 +237,6 @@ def irBuscarVehiculos(request):
         return render(request, "buscarVehiculo.html", {'sesion_activa': sesion})
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
-
 
 def irBuscarMarcaModelo(request):
     sesion = None
@@ -297,7 +279,6 @@ def irListarRevision(request):
 
     # FUNCIONES
 
-
 def fx_BuscarMarcaModelo(request):
     sesion = None
     bus = None
@@ -312,7 +293,6 @@ def fx_BuscarMarcaModelo(request):
         return render(request, "buscarMarcaModelo.html", {'sesion_activa': sesion, "vehiculos": ve, "tipo_dato": tipo_dato, "variable": variable})
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
-
 
 def fxBuscarVehiculo(request):
     sesion = None
@@ -335,7 +315,6 @@ def fxBuscarVehiculo(request):
         mensaje = 'ha ocurrido un error' + ex
     return render(request, "buscarVehiculo.html", {'mensaje': mensaje, 'sesion_activa': sesion})
 
-
 def fx_ActualizarVehiculo(request):
     car = None
     mensaje = None
@@ -345,7 +324,6 @@ def fx_ActualizarVehiculo(request):
     except:
         mensaje = "el vehiculo no se encuentra registrado"
         return render(request, 'actualizarVehiculo.html', {"mensaje": mensaje})
-
 
 def fxAgregarVehiculo(request):
     mensaje = None

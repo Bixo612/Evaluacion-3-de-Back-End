@@ -5,28 +5,28 @@
 {% endblock %}
 {% block body %}
 <h2>Buscar Vehiculo</h2>
+<p>Búsqueda por patente o número chasis</p>
 <form action="fxBuscarVehiculo" method="get"> {% csrf_token %}
-
-    <div class="input-group">
-        <span class="input-group-text">Vehiculo</span>
-
-        <input type="text" name="buscarVehiculo" class="form-control" required
-            placeholder="Ingrese dato del vehiculo" />
-
-        <select class="form-select" aria-label="Default select example" name="busqueda">
-            <option selected disabled>Buscar por</option>
-            <option value="chasis">N° Chasis</option>
-            <option value="patente">Patente</option>
-        </select>
-
-        <input type="submit" class="btn btn-success" value="Buscar Vehiculo" />
+    <div class="col-md-12 col-lg-6">
+        <div class="input-group">
+            <span class="input-group-text">Vehiculo</span>
+            <input type="text" name="buscarVehiculo" class="form-control" required
+                placeholder="Ingrese dato del vehiculo" />
+            <select class="form-select" aria-label="Default select example" name="busqueda">
+                <option selected disabled>Buscar por</option>
+                <option value="chasis">N° Chasis</option>
+                <option value="patente">Patente</option>
+            </select>
+            <input type="submit" class="btn btn-success" value="Buscar Vehiculo" />
+        </div>
     </div>
-    <div class="mb-3 col-6">
+    <hr>
+    <div class="col-md-12 col-lg-6">
         <div class="form-text">
             {{mensaje}}
         </div>
         <div class="mt-4">
-            <table>
+            <table class="table">
                 <tr>
                     <td><label class="form-label">N° Chasis</label></td>
                     <td><input type="number" class="form-control" disabled value="{{bus.numero_chasis}}"></td>

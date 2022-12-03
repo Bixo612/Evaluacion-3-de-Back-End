@@ -6,7 +6,7 @@
 {% block body %}
 <h2>Elimnar usuario</h2>
 <form action="fx_eliminarUsuario" method="get"> {% csrf_token %}
-    <div class="col-6">
+    <div class="col-md-12 col-lg-6">
         <div class="input-group">
             <span class="input-group-text">Usuario</span>
             <input type="text" name="f_username" class="form-control" maxlength="25" required />
