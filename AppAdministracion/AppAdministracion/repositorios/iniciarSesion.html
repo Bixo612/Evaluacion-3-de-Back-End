@@ -9,11 +9,11 @@
 <form action="fx_iniciarSesion" method="post"> {% csrf_token %}
     <div class="mb-3 col-6">
         <label class="form-label">Usuario</label>
-        <input type="text" class="form-control" name="form_username" />
+        <input type="text" class="form-control" name="form_username" required>
     </div>
     <div class="mb-3 col-6">
         <label class="form-label">Contraseña</label>
-        <input type="password" class="form-control" name="form_password" />
+        <input type="password" class="form-control" name="form_password" required>
     </div>
     <div class="mb-3 col-6">
         <div class="btn-group" role="group" aria-label="Basic mixed styles example">

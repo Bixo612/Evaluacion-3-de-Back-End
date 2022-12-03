@@ -32,11 +32,13 @@ def fxInicioSesion(request):
     usr = None
     try:
         usr = Usuario.objects.get(username=request.POST["form_username"])
-        if (usr.password == request.POST["form_password"]):
+        if (usr.password != request.POST["form_password"]):
+            return render(request, "iniciarSesion.html"), {"mensaje": "Datos incorrectos"}
+        elif (usr.password == request.POST["form_password"]):
             request.session['sesion_activa'] = usr.perfil
             return redirect(irInicio)
         else:
-            return render(request, "iniciarSesion.html"), {"mensaje": "contraseña no válida"}
+            return render(request, "iniciarSesion.html"), {"mensaje": "Datos incorrectos"}
     except Exception as ex:
         return render(request, "iniciarSesion.html", {"mensaje": ex})
 
@@ -164,7 +166,7 @@ def fxAgregarUsuario(request):
                 mensaje = 'Ha ocurrido un error en la operación'
         except Error as err:
             mensaje = f'ha ocurrido un problema en la operación_, {err}'
-        return render(request, "respuesta.html", {'mensaje': mensaje})
+        return render(request, "respuesta.html", {'mensaje': mensaje,'sesion_activa': sesion})
     else:
         return render(request, "index.html", {'sesion_activa': sesion})
 

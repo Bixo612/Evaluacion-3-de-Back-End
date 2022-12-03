@@ -20,6 +20,7 @@ from . import views
 urlpatterns = [
     path('', views.irInicio),
     path('iniciarSesion', views.irInicioSesion),
+    path('fx_iniciarSesion', views.fxInicioSesion),
     #Crud de usuaro
     path('agregarUsuarios', views.irAgregarUsuario),
     path('eliminarUsuarios', views.irEliminarUsuario),
@@ -35,7 +36,6 @@ urlpatterns = [
     path('agregarVehiculos', views.irAgregarVehiculos),
     path('eliminarVehiculos', views.irEliminarVehiculos),
     path('actualizarVehiculos', views.irActualizarVehiculos),
-    path('fx_iniciarSesion', views.fxInicioSesion),
     path('listarVehiculos', views.irListarVehiculos),
     path('listarRevision', views.irListarRevision),
     path('fx_eliminarVehiculo', views.fxEliminarVehiculo),
